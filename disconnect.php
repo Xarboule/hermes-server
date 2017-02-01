@@ -10,7 +10,6 @@ $address = $_SESSION['ip'];
 $errno=0;
 $errstr="";
 
-fclose($_SESSION['socket']);
 
 
 
