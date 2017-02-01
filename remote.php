@@ -21,22 +21,57 @@
 <script>
     function moveForward() {
         document.getElementById("demo").innerHTML = "Marche avant";
+        var form = document.createElement('form');
+        form.setAttribute('method', 'post');
+        form.setAttribute('action', 'send.php');
+        form.setAttribute('order', 'go');
+        form.style.display = 'hidden';
+        document.body.appendChild(form);
+        form.submit();
     }
 
     function moveBackward() {
         document.getElementById("demo").innerHTML = "Marche arrière";
+        var form = document.createElement('form');
+        form.setAttribute('method', 'post');
+        form.setAttribute('action', 'send.php');
+        form.setAttribute('order', 'gor');
+        form.style.display = 'hidden';
+        document.body.appendChild(form);
+        form.submit();
     }
 
     function turnLeft() {
         document.getElementById("demo").innerHTML = "Tourne à gauche";
+        var form = document.createElement('form');
+        form.setAttribute('method', 'post');
+        form.setAttribute('action', 'send.php');
+        form.setAttribute('order', 'sweepL');
+        form.style.display = 'hidden';
+        document.body.appendChild(form);
+        form.submit();
     }
 
     function turnRight() {
         document.getElementById("demo").innerHTML = "Tourne à droite";
+        var form = document.createElement('form');
+        form.setAttribute('method', 'post');
+        form.setAttribute('action', 'send.php');
+        form.setAttribute('order', 'sweepR');
+        form.style.display = 'hidden';
+        document.body.appendChild(form);
+        form.submit();
     }
 
     function stop() {
         document.getElementById("demo").innerHTML = "Arrêt";
+        var form = document.createElement('form');
+        form.setAttribute('method', 'post');
+        form.setAttribute('action', 'send.php');
+        form.setAttribute('order', 'stop');
+        form.style.display = 'hidden';
+        document.body.appendChild(form);
+        form.submit();
     }
 
     function shutdown () {
@@ -44,22 +79,41 @@
         form.setAttribute('method', 'post');
         form.setAttribute('action', 'disconnect.php');
         form.style.display = 'hidden';
-        document.body.appendChild(form)
+        document.body.appendChild(form);
         form.submit();
     }
 
+    function sweepStop () {
+        var form = document.createElement('form');
+        form.setAttribute('method', 'post');
+        form.setAttribute('action', 'send.php');
+        form.setAttribute('order', 'sweepstop');
+        form.style.display = 'hidden';
+        document.body.appendChild(form);
+        form.submit();
+    }
 
+    function submitForm() {
+        var http = new XMLHttpRequest();
+        http.open("POST", "<<whereverTheFormIsGoing>>", true);
+        http.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        var params = "search=" + <<get search value>>; // probably use document.getElementById(...).value
+        http.send(params);
+        http.onload = function() {
+            alert(http.responseText);
+        }
+    }
 
 
     function keyDown(event) {
 
-        if (event.keyCode === 38)
+        if (event.keyCode === 38) // avant
             moveForward();
-        else if (event.keyCode === 40)
+        else if (event.keyCode === 40) //arriere
             moveBackward();
-        else if (event.keyCode === 37)
+        else if (event.keyCode === 37) //gauche
             turnLeft();
-        else if (event.keyCode === 39)
+        else if (event.keyCode === 39) //droite
             turnRight();
 
     }
@@ -71,9 +125,9 @@
         else if (event.keyCode === 40)
             stop();
         else if (event.keyCode === 37)
-            stop();
+            sweepStop();
         else if (event.keyCode === 39)
-            stop();
+            sweepStop();
     }
 
     var fbutton = document.getElementById('fbutton');
