@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Hermes<br></p>
+
+<button  id="fbutton">Avant</button><br>
+<button  id="lbutton">Gauche</button>
+<button  onclick="stop()">Stop</button>
+<button  id="rbutton">Droite</button><br>
+<button  id="bbutton" >Arrière</button>
+<br>
+<br>
+<br>
+<button onclick="shutdown()">Fin du pilotage</button>
+
+
+
+<p id="speed">Arrêt</p><br>
+<p id="turn">Tout droit</p>
+
+<script>
+    function moveForward() {
+        document.getElementById("speed").innerHTML = "Marche avant";
+    }
+
+    function moveBackward() {
+        document.getElementById("speed").innerHTML = "Marche arrière";
+    }
+
+    function turnLeft() {
+        document.getElementById("turn").innerHTML = "Tourne à gauche";
+    }
+
+    function turnRight() {
+        document.getElementById("turn").innerHTML = "Tourne à droite";
+    }
+
+    function stop() {
+        document.getElementById("speed").innerHTML = "Arrêt";
+    }
+
+
+    function sweepStop () {
+        document.getElementById("turn").innerHTML = "Arrete de tourner"
+    }
+
+
+
+    function keyDown(event) {
+
+        if (event.keyCode === 38) // avant
+            moveForward();
+        else if (event.keyCode === 40) //arriere
+            moveBackward();
+        else if (event.keyCode === 37) //gauche
+            turnLeft();
+        else if (event.keyCode === 39) //droite
+            turnRight();
+
+    }
+
+    function keyUp(event) {
+
+        if (event.keyCode === 38)
+            stop();
+        else if (event.keyCode === 40)
+            stop();
+        else if (event.keyCode === 37)
+            sweepStop();
+        else if (event.keyCode === 39)
+            sweepStop();
+    }
+
+    var fbutton = document.getElementById('fbutton');
+    var bbutton = document.getElementById('bbutton');
+    var rbutton = document.getElementById('rbutton');
+    var lbutton = document.getElementById('lbutton');
+
+    fbutton.addEventListener('mousedown', moveForward);
+    bbutton.addEventListener('mousedown', moveBackward);
+    rbutton.addEventListener('mousedown', turnRight);
+    lbutton.addEventListener('mousedown', turnLeft);
+
+    fbutton.addEventListener('mouseup', stop);
+    bbutton.addEventListener('mouseup', stop);
+    rbutton.addEventListener('mouseup', stop);
+    lbutton.addEventListener('mouseup', stop);
+
+    document.addEventListener('keydown', keyDown);
+    document.addEventListener('keyup', keyUp);
+
+
+
+
+</script>
+
+</body>
+</html>
