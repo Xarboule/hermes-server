@@ -8,6 +8,7 @@
 
 session_start();
 
+$end_order = '';
 $errno=0;
 $errstr="";
 $service_port = 56987;
@@ -17,11 +18,13 @@ $fp = pfsockopen($_SESSION['ip'], $service_port, $errno, $errstr);
 if (!$fp) {
     echo "$errstr ($errno)<br/>\n";
     echo $fp;
+    die();
 } else {
 
-    fwrite($fp, $_POST['order'], 2048);
+    fwrite($fp, $_POST['order'].$end_order, 2048);
     echo("Socket OK<br>");
 }
+
 
 
 

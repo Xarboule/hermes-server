@@ -13,7 +13,7 @@ $service_port = 56987;
 $address = $_POST['ip'];
 $_SESSION['ip'] = $address;
 
-$in = "d 100"; // vitesse max
+$in = "sets 2000"; // vitesse max
 
 $errno=0;
 $errstr="";
@@ -22,13 +22,8 @@ $fp = pfsockopen($address, $service_port, $errno, $errstr);
 if (!$fp) {
     echo "$errstr ($errno)<br/>\n";
     echo $fp;
-} else {
-    fwrite($fp, $in, 2048);
+    die();
 }
-
-$_SESSION['socket'] = $fp;
-
-
 
 
 header('Location: remote.php');
