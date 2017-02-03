@@ -2,13 +2,14 @@ var http = require('http');
 var bodyParser = require('body-parser');
 var express = require('express');
 var net = require('net');
+var io = require('socket.io');
 
 var app = express();
 
 
 var ip = '';
 var port = 56987;
-var client = new net.Socket();
+var robot = new net.Socket();
 
 
 
@@ -33,8 +34,10 @@ app.post("/", function (req, res) {     // Envoi du formulaire (ip du robot)
 
     if(req.body.ip !== "debug")
     {
-        client.connect(port, ip, function() {
-            console.log('Connected to '+ip);
+        robot.connect(port, req.body.ip, function() {
+            console.log('Connected to '+req.body.ip);
+            robot.write('go');
+
         });
     }
 
@@ -49,36 +52,49 @@ app.post('/remote', function (req, res) {
         console.log('Le robot avance !');
         res.writeHead(200, {'Content-Type':'text/plain'});
         res.send();
+        robot.write(req.body.orderstr);
     }
     else if(req.body.orderstr === "gor"){
         console.log('Le robot recule !');
         res.writeHead(200, {'Content-Type':'text/plain'});
         res.send();
+        robot.write(req.body.orderstr);
+
     }
     else if(req.body.orderstr === "stop"){
         console.log("Le robot s'arrete !");
         res.writeHead(200, {'Content-Type':'text/plain'});
         res.send();
+        robot.write(req.body.orderstr);
+
     }
     else if(req.body.orderstr === "sweepL"){
         console.log('Le robot tourne a gauche !');
         res.writeHead(200, {'Content-Type':'text/plain'});
         res.send();
+        robot.write(req.body.orderstr);
+
     }
     else if(req.body.orderstr === "sweepR"){
         console.log('Le robot tourne a droite !');
         res.writeHead(200, {'Content-Type':'text/plain'});
         res.send();
+        robot.write(req.body.orderstr);
+
     }
     else if(req.body.orderstr ==="sweepstop"){
         console.log('Le robot arrete de tourner !');
         res.writeHead(200, {'Content-Type':'text/plain'});
         res.send();
+        robot.write(req.body.orderstr);
+
     }
     else {
         console.log('Ordre inconnu '+req.body.orderstr );
         res.writeHead(200, {'Content-Type':'text/plain'});
         res.send();
+        robot.write(req.body.orderstr);
+
     }
 
 });
@@ -87,11 +103,8 @@ app.post('/remote', function (req, res) {
 
 
 
-app.on('close', function(req, res){
+app.on('close', function(){
     console.log('Fermeture du client.');
 });
 
 app.listen(8080);
-
-app.close();
-
