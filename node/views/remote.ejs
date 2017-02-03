@@ -4,11 +4,11 @@
 
 <p>Hermes<br></p>
 
-<button  id="fbutton">Avant</button><br>
-<button  id="lbutton">Gauche</button>
+<button  name="fbutton" id="fbutton">Avant</button><br>
+<button  name="lbutton" id="lbutton">Gauche</button>
 <button  onclick="stop()">Stop</button>
-<button  id="rbutton">Droite</button><br>
-<button  id="bbutton" >Arrière</button>
+<button  name="rbutton" id="rbutton">Droite</button><br>
+<button  name="bbutton" id="bbutton" >Arrière</button>
 <br>
 <br>
 <br>
@@ -16,33 +16,39 @@
 
 
 
-<p id="speed">Arrêt</p><br>
+<p id="speed">Arrêt</p>
 <p id="turn">Tout droit</p>
 
 <script>
     function moveForward() {
         document.getElementById("speed").innerHTML = "Marche avant";
+        sendEvent("go");
     }
 
     function moveBackward() {
         document.getElementById("speed").innerHTML = "Marche arrière";
+        sendEvent("gor");
+
     }
 
     function turnLeft() {
         document.getElementById("turn").innerHTML = "Tourne à gauche";
+        sendEvent("sweepL");
     }
 
     function turnRight() {
         document.getElementById("turn").innerHTML = "Tourne à droite";
+        sendEvent("sweepR");
     }
 
     function stop() {
         document.getElementById("speed").innerHTML = "Arrêt";
+        sendEvent("stop");
     }
-
 
     function sweepStop () {
         document.getElementById("turn").innerHTML = "Arrete de tourner"
+        sendEvent("sweepstop");
     }
 
 
@@ -70,6 +76,16 @@
             sweepStop();
         else if (event.keyCode === 39)
             sweepStop();
+    }
+
+    function sendEvent(string){
+        var form = document.createElement('form');
+        form.setAttribute('method', 'post');
+        form.setAttribute('action', 'remote');
+        form.setAttribute('orderstr', string);
+        form.style.display = 'hidden';
+        document.body.appendChild(form);
+        form.submit();
     }
 
     var fbutton = document.getElementById('fbutton');
