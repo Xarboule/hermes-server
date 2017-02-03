@@ -47,27 +47,41 @@ app.post("/", function (req, res) {     // Envoi du formulaire (ip du robot)
 app.post('/remote', function (req, res) {
     if(req.body.orderstr === "go"){
         console.log('Le robot avance !');
+        res.writeHead(200, {'Content-Type':'text/plain'});
+        res.send();
     }
     else if(req.body.orderstr === "gor"){
         console.log('Le robot recule !');
+        res.writeHead(200, {'Content-Type':'text/plain'});
+        res.send();
     }
     else if(req.body.orderstr === "stop"){
         console.log("Le robot s'arrete !");
+        res.writeHead(200, {'Content-Type':'text/plain'});
+        res.send();
     }
     else if(req.body.orderstr === "sweepL"){
         console.log('Le robot tourne a gauche !');
+        res.writeHead(200, {'Content-Type':'text/plain'});
+        res.send();
     }
     else if(req.body.orderstr === "sweepR"){
         console.log('Le robot tourne a droite !');
+        res.writeHead(200, {'Content-Type':'text/plain'});
+        res.send();
     }
     else if(req.body.orderstr ==="sweepstop"){
         console.log('Le robot arrete de tourner !');
+        res.writeHead(200, {'Content-Type':'text/plain'});
+        res.send();
     }
     else {
         console.log('Ordre inconnu '+req.body.orderstr );
+        res.writeHead(200, {'Content-Type':'text/plain'});
+        res.send();
     }
 
-})
+});
 
 
 
@@ -78,4 +92,6 @@ app.on('close', function(req, res){
 });
 
 app.listen(8080);
+
+app.close();
 

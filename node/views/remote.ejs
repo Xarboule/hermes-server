@@ -78,15 +78,25 @@
             sweepStop();
     }
 
-    function sendEvent(string){
-        var form = document.createElement('form');
-        form.setAttribute('method', 'post');
-        form.setAttribute('action', 'remote');
-        form.setAttribute('orderstr', string);
-        form.style.display = 'hidden';
-        document.body.appendChild(form);
-        form.submit();
+    function sendEvent(string) {
+        var http = new XMLHttpRequest();
+        var url = "remote";
+        var params = "orderstr="+string;
+        http.open("POST", url, true);
+        console.log('Création de la requete http...');
+
+//Send the proper header information along with the request
+        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        http.onreadystatechange = function() {//Call a function when the state changes.
+            if(http.readyState == 4 && http.status == 200) {
+                console.log('Le serveur a recu un ordre '+string);
+            }
+
+        }
+        http.send(params);
     }
+
 
     var fbutton = document.getElementById('fbutton');
     var bbutton = document.getElementById('bbutton');
