@@ -36,7 +36,7 @@ app.post("/", function (req, res) {     // Envoi du formulaire (ip du robot)
     {
         robot.connect(port, req.body.ip, function() {
             console.log('Connected to '+req.body.ip);
-            robot.write('go');
+            robot.write('sets 2500');
 
         });
     }
@@ -48,52 +48,57 @@ app.post("/", function (req, res) {     // Envoi du formulaire (ip du robot)
 // Events :
 
 app.post('/remote', function (req, res) {
+
+    var buf = new Buffer(1024);
+    buf.write(req.body.orderstr)
+
+
     if(req.body.orderstr === "go"){
         console.log('Le robot avance !');
         res.writeHead(200, {'Content-Type':'text/plain'});
         res.send();
-        robot.write(req.body.orderstr);
+        robot.write(buf);
     }
     else if(req.body.orderstr === "gor"){
         console.log('Le robot recule !');
         res.writeHead(200, {'Content-Type':'text/plain'});
         res.send();
-        robot.write(req.body.orderstr);
+        robot.write(buf);
 
     }
     else if(req.body.orderstr === "stop"){
         console.log("Le robot s'arrete !");
         res.writeHead(200, {'Content-Type':'text/plain'});
         res.send();
-        robot.write(req.body.orderstr);
+        robot.write(buf);
 
     }
     else if(req.body.orderstr === "sweepL"){
         console.log('Le robot tourne a gauche !');
         res.writeHead(200, {'Content-Type':'text/plain'});
         res.send();
-        robot.write(req.body.orderstr);
+        robot.write(buf);
 
     }
     else if(req.body.orderstr === "sweepR"){
         console.log('Le robot tourne a droite !');
         res.writeHead(200, {'Content-Type':'text/plain'});
         res.send();
-        robot.write(req.body.orderstr);
+        robot.write(buf);
 
     }
     else if(req.body.orderstr ==="sweepstop"){
         console.log('Le robot arrete de tourner !');
         res.writeHead(200, {'Content-Type':'text/plain'});
         res.send();
-        robot.write(req.body.orderstr);
+        robot.write(buf);
 
     }
     else {
         console.log('Ordre inconnu '+req.body.orderstr );
         res.writeHead(200, {'Content-Type':'text/plain'});
         res.send();
-        robot.write(req.body.orderstr);
+        robot.write(buf);
 
     }
 
