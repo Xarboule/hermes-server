@@ -2,14 +2,34 @@ var http = require('http');
 var bodyParser = require('body-parser');
 var express = require('express');
 var net = require('net');
-var io = require('socket.io');
 
 var app = express();
+var server = http.createServer(app);
+
+
+// Chargement de socket.io
+var io = require('socket.io')(server);
+
+// Création du socket avec l'interface client
+io.on('connection', function (socket) {
+    console.log('---- Client connecté ----');
+    socket.on('disconnect', function (socket) {
+        console.log('---- Client déconnecté ----');
+        disconnect();
+    });
+    socket.on('message', function (order) {
+        console.log('-> Ordre reçu : '+order);
+        processOrder(order);
+    });
+
+});
+
+
 
 
 var ip = '';
 var port = 56987;
-var robot = new net.Socket();
+var robot = new net.Socket(); // Socket vers MotorDaemon
 
 
 
@@ -25,9 +45,6 @@ app.get('/', function(req, res) {
     res.render('index.ejs');
 });
 
-app.get('/remote', function(req, res) {
-    res.render('remote.ejs');
-});
 
 app.post("/", function (req, res) {     // Envoi du formulaire (ip du robot)
     console.log('IP du robot : '+req.body.ip);
@@ -41,75 +58,68 @@ app.post("/", function (req, res) {     // Envoi du formulaire (ip du robot)
         });
     }
 
-    res.redirect('/remote');
+    res.render('remote.ejs');
 });
 
 
 // Events :
 
-app.post('/remote', function (req, res) {
+function processOrder (orderstr) {
 
     var buf = new Buffer(1024);
-    buf.write(req.body.orderstr)
+    buf.write(orderstr);
 
 
-    if(req.body.orderstr === "go"){
+    if(orderstr === "go"){
         console.log('Le robot avance !');
-        res.writeHead(200, {'Content-Type':'text/plain'});
-        res.send();
         robot.write(buf);
     }
-    else if(req.body.orderstr === "gor"){
+    else if(orderstr === "gor"){
         console.log('Le robot recule !');
-        res.writeHead(200, {'Content-Type':'text/plain'});
-        res.send();
         robot.write(buf);
 
     }
-    else if(req.body.orderstr === "stop"){
+    else if(orderstr === "stop"){
         console.log("Le robot s'arrete !");
-        res.writeHead(200, {'Content-Type':'text/plain'});
-        res.send();
         robot.write(buf);
 
     }
-    else if(req.body.orderstr === "sweepL"){
+    else if(orderstr === "sweepL"){
         console.log('Le robot tourne a gauche !');
-        res.writeHead(200, {'Content-Type':'text/plain'});
-        res.send();
         robot.write(buf);
 
     }
-    else if(req.body.orderstr === "sweepR"){
+    else if(orderstr === "sweepR"){
         console.log('Le robot tourne a droite !');
-        res.writeHead(200, {'Content-Type':'text/plain'});
-        res.send();
         robot.write(buf);
 
     }
-    else if(req.body.orderstr ==="sweepstop"){
+    else if(orderstr ==="sweepstop"){
         console.log('Le robot arrete de tourner !');
-        res.writeHead(200, {'Content-Type':'text/plain'});
-        res.send();
         robot.write(buf);
 
     }
     else {
-        console.log('Ordre inconnu '+req.body.orderstr );
-        res.writeHead(200, {'Content-Type':'text/plain'});
-        res.send();
-        robot.write(buf);
-
+        console.log('Ordre inconnu : '+orderstr );
     }
 
+}
+
+
+process.on('uncaughtException', function (err) {
+    console.error(err.stack);
+    console.log("Node NOT Exiting...");
 });
 
+function disconnect(){
+    console.log('Fermeture du socket Robot...')
+    robot.close();
+}
 
 
-
-
-app.on('close', function(){
-    console.log('Fermeture du client.');
+server.on('close', function(){
+    disconnect();
+    console.log('Arrêt du serveur.');
 });
 
-app.listen(8080);
+server.listen(8080);
