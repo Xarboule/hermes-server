@@ -28,6 +28,8 @@ io.on('connection', function (socket) {
 
     else {
         console.log("--- Mode DEBUG (pas de socket vers le robot) ---");
+        var fakeVideo = require('./fake-video-source');
+
     }
     socket.on('disconnect', function (socket) {
         console.log('---- Client déconnecté ----');
@@ -71,7 +73,7 @@ app.post("/", function (req, res) {     // Envoi du formulaire (ip du robot)
     else{
         debug = false;
     }
-    var videoserver = require('./video'); // lancement du systeme de vidéo
+    var videoserver = require('./video'); // lancement du systeme de vidéo (vérifie l'etat de global.debug)
     res.render('remote.ejs');
 });
 

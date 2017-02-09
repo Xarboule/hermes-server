@@ -4,55 +4,30 @@ var net = require('net');
 var child = require('child_process');
 
 var app = express();
-var httpServer = http.createServer(app);
-
-if(global.debug){
-    var fakeVideo = require('./fake-video-source');
-}
-
-app.get('/', function(req, res) {
-    var date = new Date();
-
-    res.writeHead(200, {
-        'Date':date.toUTCString(),
-        'Connection':'close',
-        'Cache-Control':'private',
-        'Content-Type':'video/x-motion-jpeg',
-        'Server':'CustomStreamer/0.0.1',
-    });
 
 
-    var dgram = require('dgram');
-    var udpserver = dgram.createSocket('udp4');
 
 
-    udpserver.on('listening', function () {
-        console.log('Serveur UDP up');
-        var cmd = 'gst-launch-1.0';
-        var options = null;
-        var args =
-            ['udpsrc', 'host=localhost', 'port=56988',
-                '!', 'application/x-rtp', 'media=video, encoding-name=JPEG, clock-rate=90000, payload=26',
-                '!', 'rtpjitterbuffer',
-                '!', 'rtpjpegdepay',
-                '!', 'jpegdec',
-                '!', 'tcpclientsink', 'host=localhost',
-                'port=56988'];
 
-        var gstMuxer = child.spawn(cmd, args);
-
-        gstMuxer.stderr.on('data', onSpawnError);
-        gstMuxer.on('exit', onSpawnExit);
-
-    });
-    udpserver.on('message', function(message, remote) {
-        res.write(data);
-    });
+console.log('- Serveur Video UP -');
+var cmd = 'gst-launch-1.0';
+var options = null;
+var args =
+    ['udpsrc', 'address=localhost', 'port=56988',
+        '!', 'application/x-rtp, media=video, encoding-name=JPEG, clock-rate=90000, payload=26',
+        '!', 'rtpjitterbuffer',
+        '!', 'rtpjpegdepay',
+        '!', 'jpegdec',
+        '!', 'theoraenc',
+        '!', 'oggmux',
+        '!', 'tcpserversink', 'host=localhost', 'port=8081'];
 
 
-});
+var gstMuxer = child.spawn(cmd, args);
 
-httpServer.listen(8081);
+gstMuxer.stderr.on('data', onSpawnError);
+gstMuxer.on('exit', onSpawnExit);
+
 
 function onSpawnError(data) {
     console.log(data.toString());

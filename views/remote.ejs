@@ -14,7 +14,9 @@
 <br>
 <button onclick="shutdown()">Fin du pilotage</button>
 
-<img src="http://localhost:8081">
+<video width=320 height=240 autoplay>
+    <source src="http://localhost:8081">
+</video>
 
 <p id="speed">Arrêt</p>
 <p id="turn">Tout droit</p>
@@ -130,6 +132,10 @@
     function sendEvent(string) {
         socket.emit('message', string);
         console.log('Ordre envoyé : '+string);
+    }
+
+    function shutdown(){
+        socket.emit('startcamera');
     }
 
 
