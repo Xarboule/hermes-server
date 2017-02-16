@@ -9,7 +9,7 @@ var server = http.createServer(app);
 exports.debug = false;
 global.debug = true;
 
-
+app.use(express.static(__dirname + '/client/js'));
 
 
 // Chargement de socket.io
@@ -60,7 +60,7 @@ app.use(bodyParser.json());
 // Routes :
 
 app.get('/', function(req, res) {
-    res.render('index.ejs');
+    res.render('../client/views/index.ejs');
 });
 
 
@@ -74,7 +74,13 @@ app.post("/", function (req, res) {     // Envoi du formulaire (ip du robot)
         debug = false;
     }
     var videoserver = require('./video'); // lancement du systeme de vidéo (vérifie l'etat de global.debug)
-    res.render('remote.ejs');
+    res.render('../client/views/remote.ejs');
+});
+
+
+app.get('/status', function (req, res){
+   console.log('Actualisation SNMP...');
+   var snmp = require('./snmp');
 });
 
 

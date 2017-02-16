@@ -7,7 +7,7 @@ var child = require('child_process');
 var cmd = 'gst-launch-1.0';
 var options = null;
 var args =
-    ['v4l2src', 'device=/dev/video0', 'do-timestamp=true',
+    ['videotestsrc', 'pattern=snow',
         '!', 'videoconvert',
         '!', 'videoscale',
         '!', 'video/x-raw,width=320,height=240',
@@ -15,7 +15,7 @@ var args =
         '!', 'video/x-raw,framerate=15/1',
         '!', 'jpegenc', 'quality=30',
         '!', 'rtpjpegpay',
-        '!', 'udpsink', 'host=localhost',
+        '!', 'udpsink', 'host=127.0.0.1',
         'port=56988'];
 
 var gstMuxer = child.spawn(cmd, args);

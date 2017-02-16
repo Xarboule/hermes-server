@@ -13,7 +13,7 @@ console.log('- Serveur Video UP -');
 var cmd = 'gst-launch-1.0';
 var options = null;
 var args =
-    ['udpsrc', 'address=localhost', 'port=56988',
+    ['udpsrc', 'address=127.0.0.1', 'port=56988',
         '!', 'application/x-rtp, media=video, encoding-name=JPEG, clock-rate=90000, payload=26',
         '!', 'rtpjitterbuffer',
         '!', 'rtpjpegdepay',
