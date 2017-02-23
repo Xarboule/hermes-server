@@ -2,6 +2,7 @@ var http = require('http');
 var bodyParser = require('body-parser');
 var express = require('express');
 var net = require('net');
+var path = require('path');
 
 var app = express();
 var server = http.createServer(app);
@@ -89,7 +90,7 @@ var buf = Buffer.alloc(1024);
 
 function processOrder (orderstr) {
 
-    //if(!global.debug) {
+    if(!global.debug) {
 
         buf = Buffer.alloc(1024);
         buf.write(orderstr);
@@ -128,11 +129,12 @@ function processOrder (orderstr) {
             console.log('Ordre inconnu : ' + orderstr);
         }
 
-   // } else {
-    //    console.log("DEBUG : envoi de l'ordre "+orderstr);
-    //}
+    } else {
+        console.log("DEBUG : envoi de l'ordre "+orderstr);
+    }
 }
 
+app.use(express.static(path.join(__dirname, 'client')));
 
 process.on('uncaughtException', function (err) {
     console.error(err.stack);
