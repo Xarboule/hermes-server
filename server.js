@@ -9,7 +9,6 @@ var server = http.createServer(app);
 exports.debug = false;
 global.debug = true;
 
-app.use(express.static(__dirname + '/client/js'));
 
 
 // Chargement de socket.io
@@ -19,18 +18,18 @@ var io = require('socket.io')(server);
 io.on('connection', function (socket) {
     console.log('---- Client connecté ----');
 
-    if(!global.debug) {
+    //if(!global.debug) {
         robot.connect(port, ip, function () {
             console.log('Connected to ' + ip);
-            robot.write('sets 2500');
+            robot.write('sets 1500');
         });
-    }
+    //}
 
-    else {
-        console.log("--- Mode DEBUG (pas de socket vers le robot) ---");
-        var fakeVideo = require('./fake-video-source');
+//    else {
+//        console.log("--- Mode DEBUG (pas de socket vers le robot) ---");
+//        var fakeVideo = require('./fake-video-source');
 
-    }
+//    }
     socket.on('disconnect', function (socket) {
         console.log('---- Client déconnecté ----');
         disconnect();
@@ -73,14 +72,14 @@ app.post("/", function (req, res) {     // Envoi du formulaire (ip du robot)
     else{
         debug = false;
     }
-    var videoserver = require('./video'); // lancement du systeme de vidéo (vérifie l'etat de global.debug)
+    var videoserver = require('./server/video'); // lancement du systeme de vidéo (vérifie l'etat de global.debug)
     res.render('../client/views/remote.ejs');
 });
 
 
 app.get('/status', function (req, res){
    console.log('Actualisation SNMP...');
-   var snmp = require('./snmp');
+   var snmp = require('./server/snmp');
 });
 
 
@@ -90,7 +89,7 @@ var buf = Buffer.alloc(1024);
 
 function processOrder (orderstr) {
 
-    if(!global.debug) {
+    //if(!global.debug) {
 
         buf = Buffer.alloc(1024);
         buf.write(orderstr);
@@ -129,9 +128,9 @@ function processOrder (orderstr) {
             console.log('Ordre inconnu : ' + orderstr);
         }
 
-    } else {
-        console.log("DEBUG : envoi de l'ordre "+orderstr);
-    }
+   // } else {
+    //    console.log("DEBUG : envoi de l'ordre "+orderstr);
+    //}
 }
 
 
