@@ -42,7 +42,7 @@ io.on('connection', function (socket) {
         }
         else {
             console.log("(Mode Debug : Pas de socket vers le robot)".italic.gray);
-//        var fakeVideo = require('./fake-video-source');
+        var fakeVideo = require('./fake-video-source');
         }
         socket.on('disconnect', function (socket) {
             console.log('=== Deconnexion du client ==='.green);
@@ -71,7 +71,6 @@ var port = 56987;
 var robot = new net.Socket(); // Socket vers MotorDaemon
 
 
-
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -95,7 +94,7 @@ app.post("/", function (req, res) {     // Envoi du formulaire (ip du robot)
         else{
             debug = false;
         }
-        var videoserver = require('./server/video'); // lancement du systeme de vidéo (vérifie l'etat de global.debug)
+        //var videoserver = require('./server/video'); // lancement du systeme de vidéo (vérifie l'etat de global.debug)
 
             res.render('../client/views/remote.ejs');
     }

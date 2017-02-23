@@ -14,9 +14,8 @@ var args =
         '!', 'videorate',
         '!', 'video/x-raw,framerate=15/1',
         '!', 'jpegenc', 'quality=30',
-        '!', 'rtpjpegpay',
         '!', 'udpsink', 'host=127.0.0.1',
-        'port=56988'];
+        'port=8081'];
 
 var gstMuxer = child.spawn(cmd, args);
 
