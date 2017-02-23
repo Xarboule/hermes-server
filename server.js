@@ -3,9 +3,12 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var net = require('net');
 var path = require('path');
+var colors = require('colors');
 
 var app = express();
 var server = http.createServer(app);
+
+var previousOrder = " ";
 
 exports.debug = false;
 global.debug = true;
@@ -17,14 +20,14 @@ var io = require('socket.io')(server);
 
 // Création du socket avec l'interface client
 io.on('connection', function (socket) {
-    console.log('---- Client connecté ----');
+    console.log('=== Client connecté ==='.green);
 
-    //if(!global.debug) {
+    if(!global.debug) {
         robot.connect(port, ip, function () {
-            console.log('Connected to ' + ip);
+            console.log('Connecté à ' + ip);
             robot.write('sets 1500');
         });
-    //}
+    }
 
 //    else {
 //        console.log("--- Mode DEBUG (pas de socket vers le robot) ---");
@@ -32,11 +35,16 @@ io.on('connection', function (socket) {
 
 //    }
     socket.on('disconnect', function (socket) {
-        console.log('---- Client déconnecté ----');
+        console.log('=== Deconnexion volontaire du client ==='.green);
         disconnect();
     });
     socket.on('message', function (order) {
-        console.log('-> Ordre reçu : '+order);
+        if(order !== previousOrder){
+            console.log('-> Ordre reçu : '.yellow+order.grey);
+            previousOrder = order;
+        }
+
+
         processOrder(order);
     });
 
@@ -125,12 +133,14 @@ function processOrder (orderstr) {
             robot.write(buf);
 
         }
+        else if (orderstr === "close") {
+            console.log('=== Deconnexion volontaire du client ===');
+            disconnect();
+        }
         else {
             console.log('Ordre inconnu : ' + orderstr);
         }
 
-    } else {
-        console.log("DEBUG : envoi de l'ordre "+orderstr);
     }
 }
 
@@ -142,8 +152,8 @@ process.on('uncaughtException', function (err) {
 });
 
 function disconnect(){
-    console.log('Fermeture du socket Robot...')
-    robot.close();
+    console.log('Fermeture du socket Serveur <-> Robot');
+    robot.destroy();
 }
 
 

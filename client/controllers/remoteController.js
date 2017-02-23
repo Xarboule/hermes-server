@@ -111,7 +111,10 @@ function sendEvent(string) {
 }
 
 function shutdown(){
-    socket.emit('startcamera');
+    console.log("Fermeture du webSocket...");
+    socket.emit('message', 'close');
+    socket.close();
+    document.location.href="/"
 }
 
 
@@ -119,6 +122,7 @@ var fbutton = document.getElementById('fbutton');
 var bbutton = document.getElementById('bbutton');
 var rbutton = document.getElementById('rbutton');
 var lbutton = document.getElementById('lbutton');
+var disconnectButton = document.getElementById('disconnectButton');
 
 fbutton.addEventListener('mousedown', moveForward);
 bbutton.addEventListener('mousedown', moveBackward);
@@ -129,6 +133,9 @@ fbutton.addEventListener('mouseup', stop);
 bbutton.addEventListener('mouseup', stop);
 rbutton.addEventListener('mouseup', stop);
 lbutton.addEventListener('mouseup', stop);
+
+disconnectButton.addEventListener('mouseup', disconnect);
+
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
