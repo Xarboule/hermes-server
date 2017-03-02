@@ -42,7 +42,7 @@ io.on('connection', function (socket) {
         }
         else {
             console.log("(Mode Debug : Pas de socket vers le robot)".italic.gray);
-        var fakeVideo = require('./fake-video-source');
+        //var fakeVideo = require('./fake-video-source');
         }
         socket.on('disconnect', function (socket) {
             console.log('=== Deconnexion du client ==='.green);
