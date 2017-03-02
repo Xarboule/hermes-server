@@ -2,8 +2,8 @@
  * Created by xarboule on 23/02/17.
  */
 
-//var serverIp = '157.159.47.49';
-var serverIp = 'localhost';
+var serverIp = '157.159.47.49';
+//var serverIp = 'localhost';
 var serverPort = '8080';
 
 var socket = io(serverIp+':'+serverPort);
