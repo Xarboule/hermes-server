@@ -140,19 +140,28 @@ lbutton.addEventListener('mouseup', stop);
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 
-var janus = new Janus(
-    {
-        server: 'http://157.159.47.49:8088/janus',
-        success: function() {
-            // Done! attach to plugin XYZ
-            console.log("CONNECTÉ AU SERVEUR JANUS");
-        },
-        error: function(cause) {
-            // Error, can't go on...
-            console.log("CONNEXION JANUS IMPOSSIBLE :");
-            console.log(cause.toString());
-        },
-        destroyed: function() {
-            // I should get rid of this
-        }
-    });
+
+Janus.init({
+    debug: true,
+    callback: function() {
+
+        var janus = new Janus(
+            {
+                server: 'http://157.159.47.49:8088/janus',
+                success: function() {
+                    // Done! attach to plugin XYZ
+                    console.log("CONNECTÉ AU SERVEUR JANUS");
+                },
+                error: function(cause) {
+                    // Error, can't go on...
+                    console.log("CONNEXION JANUS IMPOSSIBLE :");
+                    console.log(cause.toString());
+                },
+                destroyed: function() {
+                    // I should get rid of this
+                }
+            });
+    }
+});
+
+
