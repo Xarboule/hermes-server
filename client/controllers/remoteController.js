@@ -176,6 +176,7 @@ Janus.init({
                                         },
                                         error: function(error) {
                                             // An error occurred...
+                                            Janus.log(error.toString());
                                         }
                                     });
                             }
@@ -187,6 +188,7 @@ Janus.init({
                             // This is the remote video
                             var video = document.getElementById("remotevideo");
                             Janus.attachMediaStream(video.get(0), stream);
+                            Janus.log("Stream Video binded");
                         },
 
 
