@@ -151,7 +151,48 @@ Janus.init({
                 success: function() {
                     // Done! attach to plugin XYZ
                     console.log("CONNECTÉ AU SERVEUR JANUS");
+                    janus.attach({
+
+                        plugin: "janus.plugin.streaming",
+                        success: function(pluginHandle){
+                            streaming = pluginHandle;
+                            Janus.log("Plugin attached! (" + streaming.getPlugin() + ", id=" + streaming.getId() + ")");
+
+                        }
+                    });
                 },
+
+                onmessage: function(msg, jsep) {
+                    // Handle msg, if needed, and check jsep
+                    if(jsep !== undefined && jsep !== null) {
+                        // We have an OFFER from the plugin
+                        streaming.createAnswer(
+                            {
+                                // We attach the remote OFFER
+                                jsep: jsep,
+                                // We want recvonly audio/video
+                                media: { audioSend: false, videoSend: false },
+                                success: function(ourjsep) {
+                                    // Got our SDP! Send our ANSWER to the plugin
+                                    var body = { "request": "start" };
+                                    streaming.send({"message": body, "jsep": ourjsep});
+                                },
+                                error: function(error) {
+                                    // An error occurred...
+                                }
+                            });
+                    }
+                },
+
+
+                onremotestream: function(stream) {
+                    // Invoked after send has got us a PeerConnection
+                    // This is the remote video
+                    var video = document.getElementById("remotevideo");
+                    Janus.attachMediaStream(video.get(0), stream);
+                },
+
+
                 error: function(cause) {
                     // Error, can't go on...
                     console.log("CONNEXION JANUS IMPOSSIBLE :");
