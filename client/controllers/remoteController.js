@@ -147,7 +147,7 @@ Janus.init({
 
         var janus = new Janus(
             {
-                server: 'http://157.159.47.49:8088/janus',
+                server: 'ws://157.159.47.49:8188/',
                 success: function() {
                     // Done! attach to plugin XYZ
                     console.log("CONNECTÉ AU SERVEUR JANUS");
