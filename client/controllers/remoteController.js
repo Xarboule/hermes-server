@@ -157,7 +157,7 @@ Janus.init({
                         success: function(pluginHandle){
                             streaming = pluginHandle;
                             Janus.log("Plugin attached! (" + streaming.getPlugin() + ", id=" + streaming.getId() + ")");
-                        }
+                        },
 
                         onmessage: function(msg, jsep) {
                             // Handle msg, if needed, and check jsep
@@ -206,5 +206,4 @@ Janus.init({
             });
     }
 });
-
 
