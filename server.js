@@ -9,7 +9,7 @@ var app = express();
 var server = http.createServer(app);
 
 var previousOrder = " ";
-var maxSpeed = 2000; // Vitesse max du robot
+var maxSpeed = 1200; // Vitesse max du robot
 var available = true; // Robot disponible ?
 
 
@@ -37,7 +37,24 @@ io.on('connection', function (socket) {
         if (!global.debug) {
             robot.connect(port, ip, function () {
                 console.log('Connecté à ' + ip);
-                robot.write('sets 1500');
+                var buf1 = Buffer.alloc(1024);
+                buf1.write('motordaemon');
+                sendOrder(buf1);
+
+                var buf2 = Buffer.alloc(1024);
+                buf2.write('sets 1000');
+                sendOrder(buf2);
+
+
+                setTimeout(function () {
+                    var buf3 = Buffer.alloc(1024);
+                    buf3.write('startwebcamera 157.159.47.49');
+                    sendOrder(buf3);
+                    console.log("BUFFER : "+buf3);
+                }, 500);
+
+
+
             });
         }
         else {
@@ -62,6 +79,8 @@ io.on('connection', function (socket) {
         console.log("Tentative de connexion : Robot déjà pris !");
     }
 });
+
+
 
 
 
@@ -116,7 +135,7 @@ function errorRedirection(error, res){ // Génération de la page d'erreur
 
 // Events :
 
-var buf = Buffer.alloc(1024);
+//var buf = Buffer.alloc(1024);
 
 function sendOrder(buf) {
     if(!global.debug) {
@@ -149,6 +168,15 @@ function processOrder (orderstr) {
     else if (orderstr === "sweepstop") {
         sendOrder(buf);
     }
+    else if (words[0] === "startwebcamera") {
+        buffer = Buffer.alloc(1024);
+        var offset = maxSpeed/2;
+        var newSpeed = offset+parseInt(words[1], 10)*offset/100;    // Calcul du pourcentage de vitesse
+        buffer.write("sets "+newSpeed);                             // max à envoyer (50% offset + 50% variable)
+
+        console.log("Envoyé --> "+buffer);
+        sendOrder(buffer);
+    }
     else if (words[0] === "speed") {
         buffer = Buffer.alloc(1024);
         var offset = maxSpeed/2;
@@ -158,9 +186,7 @@ function processOrder (orderstr) {
         console.log("Envoyé --> "+buffer);
         sendOrder(buffer);
     }
-    else if (orderstr === "close") {
-        disconnect();
-    }
+
     else {
         console.log('Ordre inconnu : '.bold.red + orderstr.italic);
     }
@@ -175,8 +201,11 @@ process.on('uncaughtException', function (err) {
 });
 
 function disconnect(){
+    console.log('Fin du flux video...');
+    robot.write('stopcamera');
     console.log('Fermeture du socket Serveur <-> Robot '+ip);
     robot.destroy();
+    console.log('Client déconnecté : Serveur libre.');
     available = true; // Remet le robot disponible
 }
 
