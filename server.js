@@ -19,6 +19,12 @@ console.log("|            Hermes-Server             |".bold.magenta);
 console.log("O======================================O".bold.magenta);
 console.log(" ");
 
+var sys = require('util');
+var exec = require('child_process').exec;
+function puts(error, stdout, stderr) { sys.puts(stdout) }
+exec("janus", puts);
+
+
 
 exports.debug = false;
 global.debug = true;
@@ -59,7 +65,7 @@ io.on('connection', function (socket) {
         }
         else {
             console.log("(Mode Debug : Pas de socket vers le robot)".italic.gray);
-        //var fakeVideo = require('./fake-video-source');
+            var fakeVideo = require('./server/fake-video-source');
         }
         socket.on('disconnect', function (socket) {
             console.log('=== Deconnexion du client ==='.green);
@@ -198,6 +204,8 @@ app.use(express.static(path.join(__dirname, 'client')));
 process.on('uncaughtException', function (err) {
     console.error(err.stack);
     console.log("Node NOT Exiting...");
+
+    available = true; //TODO : rendre ça propre
 });
 
 function disconnect(){
