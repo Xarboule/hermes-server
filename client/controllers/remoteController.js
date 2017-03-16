@@ -121,20 +121,6 @@ function shutdown(){
     document.location.href="/";
 }
 
-var fbutton = document.getElementById('fbutton');
-var bbutton = document.getElementById('bbutton');
-var rbutton = document.getElementById('rbutton');
-var lbutton = document.getElementById('lbutton');
-
-fbutton.addEventListener('mousedown', moveForward);
-bbutton.addEventListener('mousedown', moveBackward);
-rbutton.addEventListener('mousedown', turnRight);
-lbutton.addEventListener('mousedown', turnLeft);
-
-fbutton.addEventListener('mouseup', stop);
-bbutton.addEventListener('mouseup', stop);
-rbutton.addEventListener('mouseup', stop);
-lbutton.addEventListener('mouseup', stop);
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);

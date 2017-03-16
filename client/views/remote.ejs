@@ -1,39 +1,34 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Hermes</title>
+<% include template-head.ejs%>
+
+<div class="w3-container w3-half">
+
     <link href="/css/remote.css" rel="stylesheet" type="text/css">
-    <link href="//vjs.zencdn.net/5.11/video-js.min.css" rel="stylesheet">
+    <p>Vitesse :</p>
+    <input style="alignment: center" type="range" max="100" min="0" id="speedSlider" onmouseup="setSpeed(this.value)">
 
-</head>
 
-<body>
 
-<p>Hermes<br></p>
 
-<button  name="fbutton" id="fbutton">Avant</button><br>
-<button  name="lbutton" id="lbutton">Gauche</button>
-<button  onclick="stop()">Stop</button>
-<button  name="rbutton" id="rbutton">Droite</button><br>
-<button  name="bbutton" id="bbutton" >Arrière</button>
-<br>
-<br>
-<p>Vitesse :</p>
-<input type="range" max="100" min="0" id="speedSlider" onmouseup="setSpeed(this.value)">
-<br>
-<button onclick="shutdown()">Fin du pilotage</button>
-<br>
+    <p id="speed">Arrêt</p>
+    <p id="turn">Tout droit</p>
 
-<video id="remotevideo" width=320 height=240 autoplay></video>
+    <script src="/lib/janus.js"></script>
+    <script src="/lib/adapter.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/controllers/janusStream.js"></script>
+    <script src="/controllers/remoteController.js"></script>
 
-<p id="speed">Arrêt</p>
-<p id="turn">Tout droit</p>
+</div>
 
-<script src="/lib/janus.js"></script>
-<script src="/lib/adapter.js"></script>
-<script src="/socket.io/socket.io.js"></script>
-<script src="/controllers/janusStream.js"></script>
-<script src="/controllers/remoteController.js"></script>
+<div class="w3-container w3-half" style="background: lightgrey">
 
-</body>
-</html>
+    <video id="remotevideo" width=320 height=240 autoplay>Chargement du stream vidéo...</video>
+
+</div>
+
+<div class="w3-container">
+
+    <button onclick="shutdown()">Fin du pilotage</button>
+</div>
+
+<% include template-foot.ejs %>

@@ -105,6 +105,7 @@ app.use(bodyParser.json());
 // Routes :
 
 app.get('/', function(req, res) {
+    //res.render('../client/views/index.ejs');
     res.render('../client/views/index.ejs');
 });
 
