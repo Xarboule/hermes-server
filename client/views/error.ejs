@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Hermes ERROR</title>
-</head>
+<% include template-head.ejs %>
 
-<body>
 <h1>ERROR :</h1>
 <h3><%= error %></h3>
 <br>
@@ -14,6 +9,4 @@
     window.setTimeout("location=('/');",4000);
 </script>
 
-
-</body>
-</html>
+<% include template-foot.ejs %>

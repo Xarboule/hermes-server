@@ -9,7 +9,6 @@ var cmd = 'gst-launch-1.0';
 var options = null;
 var args =
     ['videotestsrc',
-
         '!', 'video/x-raw,width=320,height=240,framerate=15/1',
         '!', 'videoscale',
         '!', 'videorate',
