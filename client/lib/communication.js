@@ -56,6 +56,11 @@ function setSpeed(speed){
     sendEvent("speed " + speed.toString());
 }
 
+function getPosition(){
+    sendEvent("p");
+    console.log("Position du Robot : ")
+}
+
 
 function shutdown(){
     console.log("Fermeture du webSocket...");

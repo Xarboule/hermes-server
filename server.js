@@ -1,11 +1,19 @@
 var http = require('http');
 var bodyParser = require('body-parser');
 var express = require('express');
+var passport = require('passport');
+var session = require('express-session');
+//var RedisStore = require('connect-redis')(session);
 var net = require('net');
 var path = require('path');
 var colors = require('colors');
 
 var app = express();
+//app.use(session({
+    //store = new RedisStore({
+    //    url:
+    //})
+//}));
 var server = http.createServer(app);
 
 var previousOrder = " ";
@@ -22,7 +30,7 @@ console.log(" ");
 var sys = require('util');
 var exec = require('child_process').exec;
 function puts(error, stdout, stderr) { sys.puts(stdout) }
-exec("janus", puts);
+exec("janus", puts); // Lancement du serveur Janus
 
 
 
@@ -91,7 +99,6 @@ io.on('connection', function (socket) {
 
 
 
-var ip = '';
 var port = 56987;
 var robot = new net.Socket(); // Socket vers MotorDaemon
 
@@ -103,7 +110,6 @@ app.use(bodyParser.json());
 
 
 // Routes :
-
 app.get('/', function(req, res) {
     //res.render('../client/views/index.ejs');
     res.render('../client/views/index.ejs');
@@ -142,7 +148,6 @@ function errorRedirection(error, res){ // Génération de la page d'erreur
 
 // Events :
 
-//var buf = Buffer.alloc(1024);
 
 function sendOrder(buf) {
     if(!global.debug) {
