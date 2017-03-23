@@ -1,8 +1,8 @@
 var http = require('http');
 var bodyParser = require('body-parser');
 var express = require('express');
-var passport = require('passport');
-var session = require('express-session');
+//var passport = require('passport');
+//var session = require('express-session');
 //var RedisStore = require('connect-redis')(session);
 var net = require('net');
 var path = require('path');
@@ -15,6 +15,8 @@ var app = express();
     //})
 //}));
 var server = http.createServer(app);
+
+var snmpManager = require('./server/snmp'); // Lancement manager SNMP
 
 var previousOrder = " ";
 var maxSpeed = 1200; // Vitesse max du robot
