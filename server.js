@@ -40,6 +40,9 @@ exports.debug = false;
 global.debug = true;
 
 
+var port = 56987;
+var robot = new net.Socket(); // Socket vers MotorDaemon
+
 
 // Chargement de socket.io
 var io = require('socket.io')(server);
@@ -47,7 +50,7 @@ var io = require('socket.io')(server);
 // Création du socket avec l'interface client
 io.on('connection', function (socket) {
     if(available) {
-        console.log('=== Client connecté ==='.green);
+        console.log('=== Client connecté ==='.bold.green);
         available = false;
 
         if (!global.debug) {
@@ -61,17 +64,23 @@ io.on('connection', function (socket) {
                 buf2.write('sets 1000');
                 sendOrder(buf2);
 
-
                 setTimeout(function () {
                     var buf3 = Buffer.alloc(1024);
                     buf3.write('startwebcamera 157.159.47.49');
                     sendOrder(buf3);
-                    console.log("BUFFER : "+buf3);
                 }, 500);
 
-
-
             });
+            robot.on('close', function (){      // En cas de perte du socket Serveur <-> Manager
+                socket.disconnect('unauthorized');
+                console.log('Socket Serveur <-> Manager Déconnecté !'.bold.red);
+                robot.destroy(function () {
+                    robot = new net.Socket();
+                });
+                console.log('Client déconnecté : Serveur libre.');
+                available = true; // Remet le robot disponible
+            });
+
         }
         else {
             console.log("(Mode Debug : Pas de socket vers le robot)".italic.gray);
@@ -83,13 +92,13 @@ io.on('connection', function (socket) {
         });
         socket.on('message', function (order) {
             if (order !== previousOrder) {
-                console.log('-> Ordre reçu : '.yellow + order.grey);
+                //console.log('-> Ordre reçu : '.yellow + order.grey);
                 previousOrder = order;
             }
-
-
             processOrder(order);
+            snmpManager.refreshstate(socket);
         });
+
     }
     else {
         console.log("Tentative de connexion : Robot déjà pris !");
@@ -101,8 +110,6 @@ io.on('connection', function (socket) {
 
 
 
-var port = 56987;
-var robot = new net.Socket(); // Socket vers MotorDaemon
 
 
 app.use(bodyParser.urlencoded({
@@ -113,7 +120,6 @@ app.use(bodyParser.json());
 
 // Routes :
 app.get('/', function(req, res) {
-    //res.render('../client/views/index.ejs');
     res.render('../client/views/index.ejs');
 });
 
@@ -130,7 +136,7 @@ app.post("/", function (req, res) {     // Envoi du formulaire (ip du robot)
         }
         //var videoserver = require('./server/video'); // lancement du systeme de vidéo (vérifie l'etat de global.debug)
 
-            res.render('../client/views/remote.ejs');
+        res.render('../client/views/remote.ejs');
     }
     else {
         console.log("Tentative de connexion sur le robot "+ip+" : Deja pris !");
@@ -147,6 +153,11 @@ app.get('/status', function (req, res){
 function errorRedirection(error, res){ // Génération de la page d'erreur
     res.render('../client/views/error.ejs', {error: error});
 }
+
+app.get('/disconnected', function(req, res) {
+    errorRedirection("La connexion avec MotorDaemon Manager a été perdue.", res);
+});
+
 
 // Events :
 
@@ -201,6 +212,7 @@ function processOrder (orderstr) {
         sendOrder(buffer);
     }
 
+
     else {
         console.log('Ordre inconnu : '.bold.red + orderstr.italic);
     }
@@ -209,8 +221,11 @@ function processOrder (orderstr) {
 
 app.use(express.static(path.join(__dirname, 'client')));
 
+
 process.on('uncaughtException', function (err) {
-    console.error(err.stack);
+    console.error("msg : " + err.message);
+    console.error("status : " + err.status);
+    console.error("statusCode : " + err.statusCode);
     console.log("Node NOT Exiting...");
 
     available = true; //TODO : rendre ça propre

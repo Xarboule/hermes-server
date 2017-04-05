@@ -41,7 +41,6 @@ Janus.init({
                         },
 
                         onmessage: function(msg, jsep) {
-                            console.log("-- onmessage --"); // DEBUUUG
                             // Handle msg, if needed, and check jsep
                             if(jsep !== undefined && jsep !== null) {
                                 // We have an OFFER from the plugin

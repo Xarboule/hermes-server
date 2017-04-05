@@ -15,6 +15,17 @@ function sendEvent(string) {
     console.log('Ordre envoyé : '+string);
 }
 
+socket.on('message',  function(e) {
+    console.log("Info reçue : "+e.data);
+    var status = JSON.parse(e.data);
+
+});
+
+socket.on('disconnect', function(e){   // En cas de déconnexion entre le serveur et le client
+    console.log('MotorDaemon Manager déconnecté !');
+    stopKeepAlive();
+    document.location.href="/disconnected";
+});
 
 /**
  * Liste des ordres
@@ -68,13 +79,23 @@ function shutdown(){
     document.location.href="/";
 }
 
+
 /**
  * Gestion KeepAlive
  */
 
 var keepaliveTime = 400;
-var keepAlive = setInterval(stop, keepaliveTime);
+var keepAlive = 0;
 
+function startKeepAlive(){
+    keepAlive = setInterval(stop, keepaliveTime);
+}
+
+function stopKeepAlive(){
+    clearInterval(keepAlive);
+}
+
+startKeepAlive();
 
 
 

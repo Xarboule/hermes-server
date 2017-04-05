@@ -3,8 +3,6 @@
  */
 
 
-
-
 var isPressedfbutton = false;
 var isPressedbbutton = false;
 var isPressedlbutton = false;
