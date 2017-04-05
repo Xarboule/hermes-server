@@ -8,13 +8,13 @@ var snmp = require('net-snmp');
 var options = {
     port: 8079,
     retries: 0,
-    timeout: 1000,
+    timeout: 3000,
     transport: "udp4",
     trapPort: 162,
     version: snmp.Version1
 };
 
-var session = snmp.createSession ("137.74.162.172", "public", options);
+var session = snmp.createSession ("192.168.43.243", "public", options);
 
 var state = {
     connected: false,
@@ -64,7 +64,6 @@ refreshstate: function(socket){
 }
 
 }
-
 
 
 
