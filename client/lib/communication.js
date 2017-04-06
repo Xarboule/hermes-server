@@ -4,7 +4,7 @@
  * Lib de fonctions pour communiquer avec le serveur
  */
 
-var serverIp = '157.159.47.49';
+var serverIp = 'jdesvignes.eu';
 //var serverIp = 'localhost';
 var serverPort = '8080';
 

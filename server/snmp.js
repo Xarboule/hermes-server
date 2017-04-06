@@ -14,7 +14,7 @@ var options = {
     version: snmp.Version1
 };
 
-var session = snmp.createSession ("192.168.43.243", "public", options);
+var session = snmp.createSession ("127.0.0.1", "public", options);
 
 var state = {
     connected: false,
