@@ -9,6 +9,7 @@ var serverIp = 'jdesvignes.eu';
 var serverPort = '8080';
 
 var socket = io(serverIp+':'+serverPort);
+var status = null;
 
 function sendEvent(string) {
     socket.emit('message', string);
@@ -16,8 +17,13 @@ function sendEvent(string) {
 }
 
 socket.on('message',  function(e) {
-    console.log("Info reçue : "+e.data);
-    var status = JSON.parse(e.data);
+    console.log("Info SNMP reçue : "+e.data);
+    if(e.data !== undefined){
+        status = JSON.parse(e.data);
+    }
+    else {
+        console.error("JSON = undefined !");
+    }
 
 });
 
