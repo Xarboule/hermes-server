@@ -38,7 +38,7 @@ refreshstate: function(socket){
     var oids = [baseOid+"0"+endOid, baseOid+"1"+endOid, baseOid+"2"+endOid, baseOid+"3"+endOid, baseOid+"4"+endOid, baseOid+"5"+endOid, baseOid+"6"+endOid, baseOid+"7"+endOid, baseOid+"8"+endOid, baseOid+"9"+endOid, baseOid+"10"+endOid]; // Liste des oid à vérifier (dans l'ordre !)
     session.get (oids, function (error, varbinds) {
         if (error) {
-            console.log ("SNMP : " + error.red);
+            console.log ("SNMP : Impossible d'obtenir les infos -> infos par defaut");
         } else {
             for (var i = 0; i < varbinds.length; i++)
                 if (snmp.isVarbindError (varbinds[i])){
@@ -60,7 +60,7 @@ refreshstate: function(socket){
         }
     });
     console.log("SNMP : Envoi au client : "+ JSON.stringify(state));
-    socket.emit(state); // envoi au client de toutes les données
+    socket.emit("message", state); // envoi au client de toutes les données
 }
 
 }
