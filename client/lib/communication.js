@@ -23,6 +23,7 @@ socket.on('message',  function(e) {
     }
     else {
         console.error("JSON = undefined !");
+        status = JSON.parse(e.data);
     }
 
 });
