@@ -60,7 +60,7 @@ refreshstate: function(socket){
         }
     });
     console.log("SNMP : Envoi au client : "+ JSON.stringify(state));
-    socket.send(state); // envoi au client de toutes les données
+    socket.emit(state); // envoi au client de toutes les données
 }
 
 }
