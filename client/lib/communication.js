@@ -17,7 +17,7 @@ function sendEvent(string) {
     console.log('Ordre envoyé : '+string);
 }
 
-socket.onmessage = function(e) {
+socket.on('message', function(e) {
     console.log("Info SNMP reçue");
     if(e.data !== undefined){
         status = JSON.parse(e.data);
@@ -28,7 +28,7 @@ socket.onmessage = function(e) {
         console.error("JSON = undefined !");
     }
 
-};
+});
 
 function refreshStatus(status){
     document.getElementById("cpuTemp").innerHTML = status.cpuTemp;
