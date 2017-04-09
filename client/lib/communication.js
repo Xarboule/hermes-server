@@ -11,6 +11,7 @@ var serverPort = '8080';
 var socket = io(serverIp+':'+serverPort);
 var status = null;
 
+
 function sendEvent(string) {
     socket.emit('message', string);
     console.log('Ordre envoyé : '+string);
@@ -20,13 +21,18 @@ socket.onmessage = function(e) {
     console.log("Info SNMP reçue : "+e.data);
     if(e.data !== undefined){
         status = JSON.parse(e.data);
+        refreshStatus(status);
     }
     else {
         console.error("JSON = undefined !");
-        status = JSON.parse(e.data);
     }
 
 };
+
+function refreshStatus(status){
+    document.getElementById("cpuTemp").innerHTML = status.cpuTemp;
+
+}
 
 socket.on('disconnect', function(e){   // En cas de déconnexion entre le serveur et le client
     console.log('MotorDaemon Manager déconnecté !');
