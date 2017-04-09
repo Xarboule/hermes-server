@@ -16,7 +16,7 @@ function sendEvent(string) {
     console.log('Ordre envoyé : '+string);
 }
 
-socket.on('message',  function(e) {
+socket.onmessage = function(e) {
     console.log("Info SNMP reçue : "+e.data);
     if(e.data !== undefined){
         status = JSON.parse(e.data);
@@ -26,7 +26,7 @@ socket.on('message',  function(e) {
         status = JSON.parse(e.data);
     }
 
-});
+};
 
 socket.on('disconnect', function(e){   // En cas de déconnexion entre le serveur et le client
     console.log('MotorDaemon Manager déconnecté !');
