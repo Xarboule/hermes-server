@@ -66,7 +66,7 @@ io.on('connection', function (socket) {
 
                 setTimeout(function () {
                     var buf3 = Buffer.alloc(1024);
-                    buf3.write('startwebcamera 157.159.47.49');
+                    buf3.write('startwebcamera 127.0.0.1');
                     sendOrder(buf3);
                 }, 500);
 
