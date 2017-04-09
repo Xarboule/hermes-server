@@ -63,7 +63,7 @@ refreshstate: function(socket){
     socket.emit('message', state); // envoi au client de toutes les données
 }
 
-}
+};
 
 
 
