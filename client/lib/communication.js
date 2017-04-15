@@ -20,7 +20,7 @@ function sendEvent(string) {
 socket.on('message', function(e) {
     console.log("Info SNMP reçue");
 
-    if(e.data !== undefined){
+    if(e !== undefined){
         status = JSON.parse(e);
         console.log("JSON Valide");
         refreshStatus(status);
@@ -73,18 +73,13 @@ function stop() {
 }
 
 function sweepStop () {
-    document.getElementById("turn").innerHTML = "Arrete de tourner"
+    document.getElementById("turn").innerHTML = "Arrete de tourner";
     sendEvent("sweepstop");
 }
 
 function setSpeed(speed){
     console.log("Nouvelle vitesse : " + speed.toString().cyan);
     sendEvent("speed " + speed.toString());
-}
-
-function getPosition(){
-    sendEvent("p");
-    console.log("Position du Robot : ")
 }
 
 
