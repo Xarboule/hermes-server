@@ -22,7 +22,6 @@ socket.on('message', function(e) {
 
     if(e !== undefined){
         status = JSON.parse(e);
-        console.log("JSON Valide");
         refreshStatus(status);
     }
     else {
@@ -32,7 +31,8 @@ socket.on('message', function(e) {
 });
 
 function refreshStatus(status){
-    console.log("cpuTemp = "+status.cpuTemp);
+    console.log(status);
+
     document.getElementById("cpuTemp").innerHTML = status.cpuTemp;
 
 }
