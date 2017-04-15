@@ -31,7 +31,7 @@ socket.on('message', function(e) {
 });
 
 function refreshStatus(status){
-    console.log(status);
+    console.log(JSON.stringify(status));
 
     document.getElementById("cpuTemp").innerHTML = status.cpuTemp;
 
