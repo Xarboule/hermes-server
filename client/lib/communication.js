@@ -19,6 +19,7 @@ function sendEvent(string) {
 
 socket.on('message', function(e) {
     console.log("Info SNMP reçue");
+    console.log("Message reçu : "+e.data);
     if(e.data !== undefined){
         status = JSON.parse(e.data);
         console.log("JSON Valide");

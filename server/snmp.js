@@ -22,7 +22,6 @@ var test1 = JSON.stringify(state);
 
 module.exports = {
 
-
 refreshstate: function(socket){
     var baseOid = "1.3.6.1.4.1.56987.";
     var endOid = ".1";
