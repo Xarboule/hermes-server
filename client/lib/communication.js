@@ -21,6 +21,7 @@ socket.on('message', function(e) {
     console.log("Info SNMP reçue");
 
     if(e !== undefined){
+        console.log("REÇU : "+e);
         status = JSON.parse(e);
         refreshStatus(status);
     }
