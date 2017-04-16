@@ -16,7 +16,7 @@ var options = {
 
 var session = snmp.createSession ("127.0.0.1", "public", options);
 
-var state = { connected:false, positionX:0, positionY:0, batteryLevel: 0, cameraState: false, cpuLoad: 42, cpuTemp: 0, usedRam: 0, totalRam: 0, speed: 0, orientation: 0 };
+var state = { connected:"false", positionX:"0", positionY:"0", batteryLevel: "0", cameraState: "false", cpuLoad: "42", cpuTemp: "0", usedRam: "0", totalRam: "0", speed: "0", orientation: "0" };
 
 
 
@@ -49,7 +49,7 @@ refreshstate: function(socket){
                 }
         }
     });
-    console.log("SNMP : Envoi au client : "+ state);
+    console.log("SNMP : Envoi au client : "+ JSON.stringify(state));
     socket.emit('message', JSON.stringify(state)); // envoi au client de toutes les données
 }
 
