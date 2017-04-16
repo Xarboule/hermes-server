@@ -22,7 +22,12 @@ socket.on('message', function(e) {
 
     if(e !== undefined){
         console.log("REÇU : "+e);
-        status = JSON.parse("["+e+"]");
+        try {
+            status = JSON.parse("["+e+"]");
+        }
+        catch(e){
+            console.error("Parsing error : "+e);
+        }
         refreshStatus(status);
     }
     else {
