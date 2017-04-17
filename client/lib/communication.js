@@ -4,12 +4,11 @@
  * Lib de fonctions pour communiquer avec le serveur
  */
 
-var serverIp = 'jdesvignes.eu';
+var serverIp = '127.0.0.1';
 //var serverIp = 'localhost';
 var serverPort = '8080';
 
 var socket = io(serverIp+':'+serverPort);
-var status = null;
 
 
 function sendEvent(string) {
@@ -21,22 +20,28 @@ socket.on('message', function(e) {
 
     console.log("REÇU : "+e);
     try {
-        status = JSON.parse(e);
+        var status = JSON.parse(e);
     }
-    catch(e){
-        console.error("Parsing error : "+e);
+    catch(error){
+        console.error("Parsing error : "+error);
     }
-    refreshStatus(status);
+    //console.log("STATUS cpuLoad : "+JSON.parse(status).cpuLoad);
+
+    document.getElementById("positionX").innerHTML = JSON.stringify(status).positionX;
+    document.getElementById("positionY").innerHTML = JSON.stringify(status).positionY;
+    document.getElementById("batteryLevel").innerHTML = JSON.stringify(status).batteryLevel;
+    document.getElementById("cameraState").innerHTML = JSON.stringify(status).cameraState;
+    document.getElementById("cpuLoad").innerHTML = JSON.stringify(status).cpuLoad;
+    document.getElementById("cpuTemp").innerHTML = JSON.stringify(status).cpuTemp;
+    document.getElementById("usedRam").innerHTML = JSON.stringify(status).usedRam;
+    document.getElementById("totalRam").innerHTML = JSON.stringify(status).totalRam;
+    document.getElementById("speed").innerHTML = JSON.stringify(status).speed;
+    document.getElementById("orientation").innerHTML = JSON.stringify(status).orientation;
+
+
 
 
 });
-
-function refreshStatus(status){
-    console.log("STATUS cpuLoad : "+status.cpuLoad);
-
-    document.getElementById("cpuTemp").innerHTML = JSON.stringify(status);
-
-}
 
 socket.on('disconnect', function(e){   // En cas de déconnexion entre le serveur et le client
     console.log('MotorDaemon Manager déconnecté !');

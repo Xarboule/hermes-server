@@ -6,7 +6,7 @@ var snmp = require('net-snmp');
 
 // Default options
 var options = {
-    port: 8079,
+    port: 56991,
     retries: 0,
     timeout: 3000,
     transport: "udp4",
