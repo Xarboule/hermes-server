@@ -18,28 +18,23 @@ function sendEvent(string) {
 }
 
 socket.on('message', function(e) {
-    console.log("Info SNMP reçue");
 
-    if(e !== undefined){
-        console.log("REÇU : "+e);
-        try {
-            status = JSON.parse(e);
-        }
-        catch(e){
-            console.error("Parsing error : "+e);
-        }
-        refreshStatus(status);
+    console.log("REÇU : "+e);
+    try {
+        status = JSON.parse(e);
     }
-    else {
-        console.error("JSON = undefined !");
+    catch(e){
+        console.error("Parsing error : "+e);
     }
+    refreshStatus(status);
+
 
 });
 
 function refreshStatus(status){
     console.log("STATUS cpuLoad : "+status.cpuLoad);
 
-    document.getElementById("cpuTemp").innerHTML = status.cpuTemp;
+    document.getElementById("cpuTemp").innerHTML = JSON.stringify(status);
 
 }
 
