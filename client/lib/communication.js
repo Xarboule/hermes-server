@@ -21,22 +21,23 @@ socket.on('message', function(e) {
     console.log("REÇU : "+e);
     try {
         var status = JSON.parse(e);
+        console.log("PostionX = "+status.positionX);
     }
     catch(error){
         console.error("Parsing error : "+error);
     }
     //console.log("STATUS cpuLoad : "+JSON.parse(status).cpuLoad);
 
-    document.getElementById("positionX").innerHTML = JSON.stringify(status).positionX;
-    document.getElementById("positionY").innerHTML = JSON.stringify(status).positionY;
-    document.getElementById("batteryLevel").innerHTML = JSON.stringify(status).batteryLevel;
-    document.getElementById("cameraState").innerHTML = JSON.stringify(status).cameraState;
-    document.getElementById("cpuLoad").innerHTML = JSON.stringify(status).cpuLoad;
-    document.getElementById("cpuTemp").innerHTML = JSON.stringify(status).cpuTemp;
-    document.getElementById("usedRam").innerHTML = JSON.stringify(status).usedRam;
-    document.getElementById("totalRam").innerHTML = JSON.stringify(status).totalRam;
-    document.getElementById("speed").innerHTML = JSON.stringify(status).speed;
-    document.getElementById("orientation").innerHTML = JSON.stringify(status).orientation;
+    document.getElementById("positionX").innerHTML = status.positionX;
+    document.getElementById("positionY").innerHTML = status.positionY;
+    document.getElementById("batteryLevel").innerHTML = status.batteryLevel;
+    document.getElementById("cameraState").innerHTML = status.cameraState;
+    document.getElementById("cpuLoad").innerHTML = status.cpuLoad;
+    document.getElementById("cpuTemp").innerHTML = status.cpuTemp;
+    document.getElementById("usedRam").innerHTML = status.usedRam;
+    document.getElementById("totalRam").innerHTML = status.totalRam;
+    document.getElementById("snmpSpeed").innerHTML = status.speed;
+    document.getElementById("orientation").innerHTML = status.orientation;
 
 
 
