@@ -18,10 +18,8 @@ function sendEvent(string) {
 
 socket.on('message', function(e) {
 
-    console.log("REÇU : "+e);
     try {
         var status = JSON.parse(e);
-        console.log("PostionX = "+status.positionX);
     }
     catch(error){
         console.error("Parsing error : "+error);

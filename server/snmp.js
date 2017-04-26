@@ -4,6 +4,14 @@
 
 var snmp = require('net-snmp');
 
+var debug = false;
+
+snmp.log = function(string){
+    if(debug){
+        console.log("SNMP : "+string);
+    }
+};
+
 // Default options
 var options = {
     port: 56991,
@@ -70,7 +78,7 @@ refreshstate: function(socket){
                 }
         }
     });
-    console.log("SNMP : Envoi au client : "+ JSON.stringify(state));
+    snmp.log("SNMP : Envoi au client : "+ JSON.stringify(state));
     socket.emit('message', JSON.stringify(state)); // envoi au client de toutes les données
 }
 
