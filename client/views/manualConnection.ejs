@@ -1,0 +1,21 @@
+<% include template-head.ejs %>
+
+
+    <!-- -------------------------------------------------------- -->
+
+<div class="w3-container w3-twothird w3-center">
+    <form action="/manualConnection" method="post">
+        <h3>IP du robot :</h3><br>
+        <input type="text" name="ip"><br><br>
+        <input type="submit" value="OK">
+    </form>
+</div>
+<br><br>
+<img src="img/logo2.png" class="w3-center" style="width:300px">
+
+<script>
+    setPage("manual");
+</script>
+<!-- -------------------------------------------------------- -->
+
+<% include template-foot.ejs %>

@@ -108,23 +108,29 @@ io.on('connection', function (socket) {
 
 
 
-
-
-
-
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
 
 
-// Routes :
+//-----------------------------------
+//             ROUTES
+//-----------------------------------
+
+
 app.get('/', function(req, res) {
     res.render('../client/views/index.ejs');
 });
 
 
-app.post("/", function (req, res) {     // Envoi du formulaire (ip du robot)
+// Mode manuel
+
+app.get("/manualConnection", function(req, res){
+    res.render('../client/views/manualConnection.ejs');
+});
+
+app.post("/manualConnection", function (req, res) {     // Envoi du formulaire (ip du robot)
     if (available) {
         console.log('IP du robot : '+req.body.ip);
         ip = req.body.ip;
@@ -145,9 +151,34 @@ app.post("/", function (req, res) {     // Envoi du formulaire (ip du robot)
 });
 
 
-app.get('/status', function (req, res){
-   console.log('Actualisation SNMP...');
-   var snmp = require('./server/snmp');
+// Mode Automatique
+
+app.get('/automaticConnection', function (req, res){
+    res.render('../client/views/automaticConnection.ejs');
+});
+
+app.post("/manualConnection", function (req, res) {     // Envoi du formulaire (ip du robot)
+    if (available) {
+        console.log('IP du robot : '+req.body.ip);
+        ip = req.body.ip;
+        if(ip === "debug"){
+            global.debug = true;
+        }
+        else{
+            debug = false;
+        }
+        //var videoserver = require('./server/video'); // lancement du systeme de vidéo (vérifie l'etat de global.debug)
+
+        res.render('../client/views/automatic.ejs');
+    }
+    else {
+        console.log("Tentative de connexion sur le robot "+ip+" : Deja pris !");
+        errorRedirection('Le robot demandé est déjà pris par un autre utilisateur. Veuillez essayer plus tard.', res);
+    }
+});
+
+app.get("/settings", function(req, res){
+   res.render('../client/views/settings.ejs');
 });
 
 function errorRedirection(error, res){ // Génération de la page d'erreur
