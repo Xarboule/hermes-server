@@ -1,6 +1,48 @@
 <% include template-head.ejs %>
 
-Général
+<div class="w3-row-padding w3-margin-bottom">
+
+    <a href="/manualConnection" class="w3-third">
+        <div class="w3-container w3-blue w3-padding-16">
+            <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
+            <div class="w3-clear"></div>
+            <h4>Pilotage <br>Manuel</h4>
+        </div>
+    </a>
+    <a href="/automaticConnection" class="w3-third">
+        <div class="w3-container w3-teal w3-padding-16">
+            <div class="w3-left"><i class="fa fa-bullseye w3-xxxlarge"></i></div>
+            <div class="w3-clear"></div>
+            <h4>Pilotage <br>Automatique</h4>
+        </div>
+    </a>
+    <a href="/settings" class="w3-third">
+        <div class="w3-container w3-orange w3-text-white w3-padding-16">
+            <div class="w3-left"><i class="fa fa-cog w3-xxxlarge"></i></div>
+
+            <div class="w3-clear"></div>
+            <h4>Paramètres<br>de l'application</h4>
+        </div>
+    </a>
+</div>
+
+
+<div class="w3-container w3-dark-grey w3-padding-32 w3-bottom">
+    <div class="w3-row">
+        <div class="w3-container w3-third">
+            <h5 class="w3-bottombar w3-border-green">Le Projet Hermes</h5>
+            <a href="/about">À propos du Projet</a><br>
+            <a href="/contact">Contact</a>
+        </div>
+        <div class="w3-container w3-third">
+            <h5 class="w3-bottombar w3-border-red">Le Système</h5>
+            <a href="/documentation">Voir la documentation</a><br>
+            <a href="/source">Code Source</a>
+        </div>
+
+    </div>
+</div>
+
 
 <script>
     setPage("general");

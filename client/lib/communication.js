@@ -42,6 +42,12 @@ socket.on('message', function(e) {
 
 });
 
+socket.on('connect_failed', function(e){
+    console.log('Impossible de se connecter à MotorDaemon Manager !');
+    document.location.href="/disconnected";
+
+
+});
 socket.on('disconnect', function(e){   // En cas de déconnexion entre le serveur et le client
     console.log('MotorDaemon Manager déconnecté !');
     stopKeepAlive();

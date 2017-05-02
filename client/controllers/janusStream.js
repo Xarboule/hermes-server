@@ -1,6 +1,9 @@
+//noinspection JSAnnotator
 /**
  * Created by xarboule on 11/03/17.
  */
+
+
 
 Janus.init({
     debug: true,
@@ -8,7 +11,8 @@ Janus.init({
 
         var janus = new Janus(
             {
-                server: 'ws://157.159.47.49:8188/',
+                server: 'ws://157.159.47.49:8188/',    // Serveur par lequel passe le flux vidéo
+
                 success: function() {
                     // Done! attach to plugin XYZ
                     console.log("CONNECTÉ AU SERVEUR JANUS");
