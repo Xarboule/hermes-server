@@ -38,8 +38,6 @@ socket.on('message', function(e) {
     document.getElementById("orientation").innerHTML = status.orientation;
 
 
-
-
 });
 
 socket.on('connect_failed', function(e){

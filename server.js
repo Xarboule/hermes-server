@@ -167,7 +167,7 @@ app.post("/manualConnection", function (req, res) {     // Envoi du formulaire (
         else{
             debug = false;
         }
-        //var videoserver = require('./server/video'); // lancement du systeme de vidéo (vérifie l'etat de global.debug)
+        var videoserver = require('./server/video'); // lancement du systeme de vidéo (vérifie l'etat de global.debug)
 
         res.render('../client/views/automatic.ejs');
     }
