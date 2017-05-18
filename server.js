@@ -157,7 +157,7 @@ app.get('/automaticConnection', function (req, res){
     res.render('../client/views/automaticConnection.ejs');
 });
 
-app.post("/manualConnection", function (req, res) {     // Envoi du formulaire (ip du robot)
+app.post("/automaticConnection", function (req, res) {     // Envoi du formulaire (ip du robot)
     if (available) {
         console.log('IP du robot : '+req.body.ip);
         ip = req.body.ip;
@@ -176,6 +176,9 @@ app.post("/manualConnection", function (req, res) {     // Envoi du formulaire (
         errorRedirection('Le robot demandé est déjà pris par un autre utilisateur. Veuillez essayer plus tard.', res);
     }
 });
+
+
+
 
 app.get("/settings", function(req, res){
    res.render('../client/views/settings.ejs');
