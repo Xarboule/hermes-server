@@ -16,7 +16,7 @@ var app = express();
 //}));
 var server = http.createServer(app);
 
-var snmpManager = require('./server/snmp'); // Lancement manager SNMP
+var snmpManager = require('./snmp'); // Lancement manager SNMP
 
 var previousOrder = " ";
 var maxSpeed = 1200; // Vitesse max du robot
@@ -84,7 +84,7 @@ io.on('connection', function (socket) {
         }
         else {
             console.log("(Mode Debug : Pas de socket vers le robot)".italic.gray);
-            var fakeVideo = require('./server/fake-video-source');
+            var fakeVideo = require('./fake-video-source');
         }
         socket.on('disconnect', function (socket) {
             console.log('=== Deconnexion du client ==='.green);
@@ -253,7 +253,7 @@ function processOrder (orderstr) {
 
 }
 
-app.use(express.static(path.join(__dirname, 'client')));
+app.use(express.static(path.join(__dirname, '../client'))); // Rend public le dossier client
 
 
 process.on('uncaughtException', function (err) {
