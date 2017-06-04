@@ -7,6 +7,7 @@ var express = require('express');
 var net = require('net');
 var path = require('path');
 var colors = require('colors');
+var requirejs = require('requirejs');
 
 var app = express();
 //app.use(session({
@@ -167,7 +168,7 @@ app.post("/automaticConnection", function (req, res) {     // Envoi du formulair
         else{
             debug = false;
         }
-        var videoserver = require('./server/video'); // lancement du systeme de vidéo (vérifie l'etat de global.debug)
+        var videoserver = require('./video'); // lancement du systeme de vidéo (vérifie l'etat de global.debug)
 
         res.render('../client/views/automatic.ejs');
     }
