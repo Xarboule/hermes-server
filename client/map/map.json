@@ -1,0 +1,66 @@
+{
+  "map": {
+    "x" : 800,
+    "y" : 800,
+    "scale" : 1,
+    "xstart" : 42,
+    "ystart" : 42,
+    "anglestart" : 0
+  },
+  "obstacles": [
+    {
+      "type" : "circle",
+      "x" : 200,
+      "y" : 200,
+      "angle" : null,
+      "rayon" : 50,
+      "height" : null,
+      "width" : null
+    },
+    {
+      "type" : "circle",
+      "x" : 199,
+      "y" : 303,
+      "angle" : null,
+      "rayon" : 50,
+      "height" : null,
+      "width" : null
+    },
+    {
+      "type" : "rectangle",
+      "x" : 213,
+      "y" : 197,
+      "angle" : 0.0,
+      "rayon" : null,
+      "height" : 100,
+      "width" : 100
+    },
+    {
+      "type" : "rectangle",
+      "x" : 312,
+      "y" : 197,
+      "angle" : 0.0,
+      "rayon" : null,
+      "height" : 100,
+      "width" : 100
+    },
+    {
+      "type" : "rectangle",
+      "x" : 413,
+      "y" : 197,
+      "angle" : 0.0,
+      "rayon" : null,
+      "height" : 100,
+      "width" : 100
+    },
+    {
+      "type" : "rectangle",
+      "x" : 497,
+      "y" : 185,
+      "angle" : 0.0,
+      "rayon" : null,
+      "height" : 130,
+      "width" : 100
+    }
+  ]
+}

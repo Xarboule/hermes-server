@@ -1,20 +1,13 @@
 var http = require('http');
 var bodyParser = require('body-parser');
 var express = require('express');
-//var passport = require('passport');
-//var session = require('express-session');
-//var RedisStore = require('connect-redis')(session);
+
 var net = require('net');
 var path = require('path');
 var colors = require('colors');
-var requirejs = require('requirejs');
 
 var app = express();
-//app.use(session({
-    //store = new RedisStore({
-    //    url:
-    //})
-//}));
+
 var server = http.createServer(app);
 
 var snmpManager = require('./snmp'); // Lancement manager SNMP
