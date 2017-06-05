@@ -5,10 +5,44 @@
 var canvas = new fabric.Canvas('map');
 
 canvas.removeListeners();
+canvas.backgroundColor = 'white';
 
 $.getJSON("/map/map.json", function(map){
    canvas.setHeight(map.map.y);
    canvas.setWidth(map.map.x);
+
+
+
+
+   for (var index in map.obstacles){
+       var obstacle = map.obstacles[index];
+       if(obstacle.type === "circle"){
+            canvas.add(new fabric.Circle({
+                originX: 'center',
+                originY: 'center',
+                left: obstacle.xcenter,
+                top: obstacle.ycenter,
+                fill: 'red',
+                radius: obstacle.rayon
+            }));
+       }
+       else if(obstacle.type === "rectangle"){
+           canvas.add(new fabric.Rect({
+               centeredRotation: true,
+               originX: 'center',
+               originY: 'center',
+               left: obstacle.xcenter,
+               top: obstacle.ycenter,
+               fill: 'red',
+               width: obstacle.width,
+               height: obstacle.height,
+               angle: (obstacle.angle/(2*Math.PI))*360
+           }));
+       }
+       else {
+           console.log("MAP : type d'obstacle inconnu : "+obstacle.type);
+       }
+   }
 
     canvas.add(new fabric.Triangle({
         originX: 'center',
@@ -18,34 +52,6 @@ $.getJSON("/map/map.json", function(map){
         angle: map.map.anglestart,
         fill: 'green'
     }));
-
-
-   for (var index in map.obstacles){
-       var obstacle = map.obstacles[index];
-       if(obstacle.type === "circle"){
-            canvas.add(new fabric.Circle({
-                originX: 'center',
-                originY: 'center',
-                left: obstacle.x,
-                top: obstacle.y,
-                fill: 'red',
-                radius: obstacle.rayon
-            }));
-       }
-       else if(obstacle.type === "rectangle"){
-           canvas.add(new fabric.Rect({
-               left: obstacle.x,
-               top: obstacle.y,
-               fill: 'red',
-               width: obstacle.width,
-               height: obstacle.height,
-               angle: obstacle.angle
-           }));
-       }
-       else {
-           console.log("MAP : type d'obstacle inconnu : "+obstacle.type);
-       }
-   }
 
 });
 

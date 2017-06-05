@@ -1,5 +1,5 @@
 {
-  "map": {
+  "map":{
     "x" : 800,
     "y" : 800,
     "scale" : 1,
@@ -10,56 +10,90 @@
   "obstacles": [
     {
       "type" : "circle",
-      "x" : 200,
-      "y" : 200,
+      "xcenter" : 562,
+      "ycenter" : 553,
+      "x" : null,
+      "y" : null,
       "angle" : null,
-      "rayon" : 50,
+      "rayon" : 141,
       "height" : null,
       "width" : null
     },
     {
       "type" : "circle",
-      "x" : 199,
-      "y" : 303,
+      "xcenter" : 188,
+      "ycenter" : 551,
+      "x" : null,
+      "y" : null,
       "angle" : null,
-      "rayon" : 50,
+      "rayon" : 141,
+      "height" : null,
+      "width" : null
+    },
+    {
+      "type" : "circle",
+      "xcenter" : 195,
+      "ycenter" : 174,
+      "x" : null,
+      "y" : null,
+      "angle" : null,
+      "rayon" : 141,
+      "height" : null,
+      "width" : null
+    },
+    {
+      "type" : "circle",
+      "xcenter" : 567,
+      "ycenter" : 178,
+      "x" : null,
+      "y" : null,
+      "angle" : null,
+      "rayon" : 141,
       "height" : null,
       "width" : null
     },
     {
       "type" : "rectangle",
-      "x" : 213,
-      "y" : 197,
-      "angle" : 0.0,
+      "xcenter" : 375,
+      "ycenter" : 292,
+      "x" : 375,
+      "y" : 222,
+      "angle" : 0.7853981633974483,
       "rayon" : null,
       "height" : 100,
       "width" : 100
     },
     {
       "type" : "rectangle",
-      "x" : 312,
-      "y" : 197,
-      "angle" : 0.0,
+      "xcenter" : 446,
+      "ycenter" : 363,
+      "x" : 446,
+      "y" : 293,
+      "angle" : 0.7853981633974483,
       "rayon" : null,
       "height" : 100,
       "width" : 100
     },
     {
       "type" : "rectangle",
-      "x" : 413,
-      "y" : 197,
-      "angle" : 0.0,
+      "xcenter" : 304,
+      "ycenter" : 363,
+      "x" : 304,
+      "y" : 293,
+      "angle" : 0.7853981633974483,
       "rayon" : null,
       "height" : 100,
       "width" : 100
     },
     {
       "type" : "rectangle",
-      "x" : 497,
-      "y" : 185,
-      "angle" : 0.0,
+      "xcenter" : 375,
+      "ycenter" : 434,
+      "x" : 375,
+      "y" : 364,
+      "angle" : 0.7853981633974483,
       "rayon" : null,
-      "height" : 130,
+      "height" : 100,
       "width" : 100
     }
   ]
