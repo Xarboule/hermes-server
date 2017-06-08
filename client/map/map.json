@@ -3,9 +3,9 @@
     "x" : 800,
     "y" : 800,
     "scale" : 1,
-    "xstart" : 42,
-    "ystart" : 42,
-    "anglestart" : 0
+    "xstart" : 400,
+    "ystart" : 400,
+    "anglestart" : 1
   },
   "obstacles": [
     {
@@ -51,50 +51,7 @@
       "rayon" : 141,
       "height" : null,
       "width" : null
-    },
-    {
-      "type" : "rectangle",
-      "xcenter" : 375,
-      "ycenter" : 292,
-      "x" : 375,
-      "y" : 222,
-      "angle" : 0.7853981633974483,
-      "rayon" : null,
-      "height" : 100,
-      "width" : 100
-    },
-    {
-      "type" : "rectangle",
-      "xcenter" : 446,
-      "ycenter" : 363,
-      "x" : 446,
-      "y" : 293,
-      "angle" : 0.7853981633974483,
-      "rayon" : null,
-      "height" : 100,
-      "width" : 100
-    },
-    {
-      "type" : "rectangle",
-      "xcenter" : 304,
-      "ycenter" : 363,
-      "x" : 304,
-      "y" : 293,
-      "angle" : 0.7853981633974483,
-      "rayon" : null,
-      "height" : 100,
-      "width" : 100
-    },
-    {
-      "type" : "rectangle",
-      "xcenter" : 375,
-      "ycenter" : 434,
-      "x" : 375,
-      "y" : 364,
-      "angle" : 0.7853981633974483,
-      "rayon" : null,
-      "height" : 100,
-      "width" : 100
     }
+
   ]
 }
