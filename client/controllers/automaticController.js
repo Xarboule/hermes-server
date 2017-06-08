@@ -19,7 +19,14 @@ $.getJSON("/map/map.json", function(map){
         left: map.map.xstart,
         top: map.map.ystart,
         fill: 'yellow',
-        radius: 50
+        radius: 50,
+        lockMovementX: true,
+        lockMovementY: true,
+        lockScalingX: true,
+        lockScalingY: true,
+        lockUniScaling: true,
+        lockrotation: true,
+        selectable: false
     }));
 
    for (var index in map.obstacles){
@@ -31,7 +38,14 @@ $.getJSON("/map/map.json", function(map){
                 left: obstacle.xcenter,
                 top: obstacle.ycenter,
                 fill: 'darkred',
-                radius: obstacle.rayon
+                radius: obstacle.rayon,
+                lockMovementX: true,
+                lockMovementY: true,
+                lockScalingX: true,
+                lockScalingY: true,
+                lockUniScaling: true,
+                lockrotation: true,
+                selectable: false
             }));
        }
        else if(obstacle.type === "rectangle"){
@@ -44,7 +58,14 @@ $.getJSON("/map/map.json", function(map){
                fill: 'darkred',
                width: obstacle.width,
                height: obstacle.height,
-               angle: (obstacle.angle/(2*Math.PI))*360
+               angle: (obstacle.angle/(2*Math.PI))*360,
+               lockMovementX: true,
+               lockMovementY: true,
+               lockScalingX: true,
+               lockScalingY: true,
+               lockUniScaling: true,
+               lockrotation: true,
+               selectable: false
            }));
        }
        else {
@@ -63,7 +84,14 @@ $.getJSON("/map/map.json", function(map){
 
     fabric.Image.fromURL('/img/robot.png', function(oImg){
         oImg.set({originX: 'center',
-            originY: 'center'});
+            originY: 'center',
+            lockMovementX: true,
+            lockMovementY: true,
+            lockScalingX: true,
+            lockScalingY: true,
+            lockUniScaling: true,
+            lockrotation: true,
+            selectable: false});
         oImg.set({'left': map.map.xstart});
         oImg.set({'top': map.map.ystart});
         oImg.set({'angle': map.map.anglestart/(2*Math.PI)*360});
@@ -72,14 +100,17 @@ $.getJSON("/map/map.json", function(map){
 
     });
 
-    canvas.add(new fabric.Circle({
+    var setPoint = new fabric.Circle({
         originX: 'center',
         originY: 'center',
         left: map.map.xstart,
         top: map.map.ystart,
         fill: 'green',
         radius: 15
-    }));
+    })
+
+    canvas.add(setPoint);
+    canvas.bringToFront(setPoint);
 
 });
 
