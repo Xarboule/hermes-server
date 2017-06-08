@@ -2,6 +2,11 @@
  * Created by xarboule on 12/05/17.
  */
 
+
+
+
+
+
 var canvas = new fabric.Canvas('map');
 
 //canvas.removeListeners();
@@ -100,6 +105,12 @@ $.getJSON("/map/map.json", function(map){
 
     });
 
+
+
+
+
+    //------- Gestion setPoint ---------
+
     var setPoint = new fabric.Circle({
         originX: 'center',
         originY: 'center',
@@ -107,16 +118,17 @@ $.getJSON("/map/map.json", function(map){
         top: map.map.ystart,
         fill: 'green',
         radius: 15
-    })
+    });
+
+    function moveHandler(){
+        askGoTo(setPoint.getCenterPoint());
+    }
+
+    canvas.on('object:modified', moveHandler);
+
 
     canvas.add(setPoint);
     canvas.bringToFront(setPoint);
-
-    //setPoint.onaskGoTo(setPoint.getCenterPoint()));
-
-    setPoint.on
-
-
 });
 
 
