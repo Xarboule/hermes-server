@@ -112,6 +112,11 @@ $.getJSON("/map/map.json", function(map){
     canvas.add(setPoint);
     canvas.bringToFront(setPoint);
 
+    //setPoint.onaskGoTo(setPoint.getCenterPoint()));
+
+    setPoint.on
+
+
 });
 
 
