@@ -1,6 +1,7 @@
 var http = require('http');
 var bodyParser = require('body-parser');
 var express = require('express');
+var fs = require('fs');
 
 var net = require('net');
 var path = require('path');
@@ -35,7 +36,7 @@ global.debug = true;
 
 
 var port = 56987;
-var robot = new net.Socket(); // Socket vers MotorDaemon
+var robot = new net.Socket(); // Socket vers hermes-manager
 
 
 // Chargement de socket.io
@@ -64,6 +65,16 @@ io.on('connection', function (socket) {
                     sendOrder(buf3);
                 }, 500);
 
+                setTimeout(function () {
+                    var buf4 = Buffer.alloc(1024);
+                    fs.readFile(__dirname+"/../client/map/map.json", "utf8", function(err, data){
+                        if(err) throw err;
+                        buf4.write('newmap '+data);
+                        sendOrder(buf4);
+                    });
+
+                }, 500);
+
             });
             robot.on('close', function (){      // En cas de perte du socket Serveur <-> Manager
                 socket.disconnect('unauthorized');
@@ -74,6 +85,18 @@ io.on('connection', function (socket) {
                 console.log('Client déconnecté : Serveur libre.');
                 available = true; // Remet le robot disponible
             });
+
+            robot.on('data', function (data) {
+                var message = data.toString("utf8");
+                var words = message.split(" ");
+                if(words[0]==="path"){
+                    socket.write(data);
+                }
+                else {
+                    console.log("Message du manager inconnu : "+data);
+                }
+            });
+
 
         }
         else {
@@ -239,7 +262,9 @@ function processOrder (orderstr) {
         console.log("Envoyé --> "+buffer);
         sendOrder(buffer);
     }
-
+    else if (words[0] === "goto") {
+        sendOrder(buf);
+    }
 
     else {
         console.log('Ordre inconnu : '.bold.red + orderstr.italic);
