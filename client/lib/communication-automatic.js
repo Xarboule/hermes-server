@@ -18,13 +18,35 @@ function sendEvent(string) {
 
 socket.on('message', function(e) {
 
+    /*
     try {
-        var status = JSON.parse(e);
+        var obj = JSON.parse(e);
+
     }
     catch(error){
         console.error("Parsing error : "+error);
+        console.log("DEBUG : "+e.toString());
     }
-    //console.log("STATUS cpuLoad : "+JSON.parse(status).cpuLoad);
+*/
+    try {
+        var decodedString = String.fromCharCode.apply(null, new Uint8Array(e));
+        var obj = JSON.parse(decodedString);
+    }
+    catch(error){
+
+    }
+
+    if(e.type==="snmp"){
+        console.log("Info SNMP reçue");
+        var status = e;
+    }
+    else if(obj.type==="path"){
+        console.log("Path reçu");
+        displayPath(obj);
+    }
+    else {
+        console.error("Message reçu de type inconnu : "+obj);
+    }
 
 
 });

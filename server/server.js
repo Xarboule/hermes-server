@@ -86,15 +86,8 @@ io.on('connection', function (socket) {
                 available = true; // Remet le robot disponible
             });
 
-            robot.on('data', function (data) {
-                var message = data.toString("utf8");
-                var words = message.split(" ");
-                if(words[0]==="path"){
+            robot.on('data', function (data) {      // On transmet directement au client tout ce qui vient du manager
                     socket.write(data);
-                }
-                else {
-                    console.log("Message du manager inconnu : "+data);
-                }
             });
 
 

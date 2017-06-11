@@ -12,7 +12,30 @@ var canvas = new fabric.Canvas('map');
 //canvas.removeListeners();
 canvas.backgroundColor = 'white';
 
+var pathgroup = new fabric.Group([]);
 
+function displayPath(json){
+    canvas.remove(pathgroup);
+    pathgroup = new fabric.Group([]);
+    for (var index in json.path){
+        pathgroup.addWithUpdate(new fabric.Circle({
+            originX: 'center',
+            originY: 'center',
+            left: json.path[index].x,
+            top: json.path[index].y,
+            fill: 'blue',
+            radius: 2,
+            lockMovementX: true,
+            lockMovementY: true,
+            lockScalingX: true,
+            lockScalingY: true,
+            lockUniScaling: true,
+            lockrotation: true,
+            selectable: false
+        }));
+    }
+    canvas.add(pathgroup);
+}
 
 $.getJSON("/map/map.json", function(map){
    canvas.setHeight(map.map.y);

@@ -24,7 +24,8 @@ var options = {
 
 var session = snmp.createSession ("127.0.0.1", "public", options);
 
-var state = { connected:false,
+var state = { type: "snmp",
+    connected:false,
     positionX:0,
     positionY:0,
     batteryLevel: 0,
@@ -79,7 +80,7 @@ refreshstate: function(socket){
         }
     });
     snmp.log("SNMP : Envoi au client : "+ JSON.stringify(state));
-    socket.emit('message', JSON.stringify(state)); // envoi au client de toutes les données
+    socket.emit('message', state); // envoi au client de toutes les données
 }
 
 };
