@@ -7,9 +7,8 @@
 var serverIp = location.host;
 console.log("Serveur : "+serverIp);
 //var serverIp = 'localhost';
-var serverPort = '8080';
 
-var socket = io(serverIp+':'+serverPort);
+var socket = io(serverIp);
 
 
 function sendEvent(string) {
@@ -18,14 +17,25 @@ function sendEvent(string) {
 }
 
 socket.on('message', function(e) {
-
     try {
-        var status = JSON.parse(e);
+        var decodedString = String.fromCharCode.apply(null, new Uint8Array(e));
+        var obj = JSON.parse(decodedString);
     }
     catch(error){
-        console.error("Parsing error : "+error);
+
     }
-    //console.log("STATUS cpuLoad : "+JSON.parse(status).cpuLoad);
+
+    if(e.type==="snmp"){
+        console.log("Info SNMP reçue");
+        var status = e;
+    }
+    else if(obj.type==="path"){
+        console.log("Path reçu");
+        displayPath(obj);
+    }
+    else {
+        console.error("Message reçu de type inconnu : "+obj);
+    }
 
     document.getElementById("positionX").innerHTML = status.positionX;
     document.getElementById("positionY").innerHTML = status.positionY;

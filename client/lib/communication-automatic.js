@@ -7,9 +7,8 @@
 
 var serverIp = location.host;
 //var serverIp = 'localhost';
-var serverPort = '8080';
 
-var socket = io(serverIp+':'+serverPort);
+var socket = io(serverIp);
 
 
 function sendEvent(string) {
