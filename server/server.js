@@ -156,7 +156,7 @@ app.post("/manualConnection", function (req, res) {     // Envoi du formulaire (
     }
     else {
         console.log("Tentative de connexion sur le robot "+ip+" : Deja pris !");
-        errorRedirection('Le robot demandé est déjà pris par un autre utilisateur. Veuillez essayer plus tard.', res);
+        errorRedirection('Le robot est déjà pris par un autre utilisateur. Veuillez essayer plus tard.', res);
     }
 });
 
@@ -183,7 +183,7 @@ app.post("/automaticConnection", function (req, res) {     // Envoi du formulair
     }
     else {
         console.log("Tentative de connexion sur le robot "+ip+" : Deja pris !");
-        errorRedirection('Le robot demandé est déjà pris par un autre utilisateur. Veuillez essayer plus tard.', res);
+        errorRedirection('Le robot est déjà pris par un autre utilisateur. Veuillez essayer plus tard.', res);
     }
 });
 
@@ -199,7 +199,7 @@ function errorRedirection(error, res){ // Génération de la page d'erreur
 }
 
 app.get('/disconnected', function(req, res) {
-    errorRedirection("La connexion avec MotorDaemon Manager a été perdue.", res);
+    errorRedirection("La connexion avec hermes-manager a été perdue.", res);
 });
 
 
@@ -284,6 +284,8 @@ function disconnect(){
     robot.destroy();
     console.log('Client déconnecté : Serveur libre.');
     available = true; // Remet le robot disponible
+    errorRedirection("La connexion avec hermes-manager a été perdue.", res);
+
 }
 
 
