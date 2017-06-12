@@ -4,7 +4,8 @@
  * Lib de fonctions pour communiquer avec le serveur
  */
 
-var serverIp = '127.0.0.1';
+var serverIp = location.host;
+console.log("Serveur : "+serverIp);
 //var serverIp = 'localhost';
 var serverPort = '8080';
 
