@@ -51,7 +51,7 @@ socket.on('message', function(e) {
         document.getElementById("snmpSpeed").innerHTML = status.speed;
         document.getElementById("orientation").innerHTML = status.orientation;
 
-        updateRobotPosition(status.positionX, status.positionY, status.orientation+(Math.PI/2)); // Met à jour la position du robot en fonction des retours SNMP
+        updateRobotPosition(status.positionX, status.positionY, status.orientation+(Math.PI)); // Met à jour la position du robot en fonction des retours SNMP
     }
     else if(obj.type==="path"){
         console.log("Path reçu");
