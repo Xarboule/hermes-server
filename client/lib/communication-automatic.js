@@ -39,6 +39,19 @@ socket.on('message', function(e) {
     if(e.type==="snmp"){
         console.log("Info SNMP reçue");
         var status = e;
+
+        document.getElementById("positionX").innerHTML = status.positionX;
+        document.getElementById("positionY").innerHTML = status.positionY;
+        document.getElementById("batteryLevel").innerHTML = status.batteryLevel;
+        document.getElementById("cameraState").innerHTML = status.cameraState;
+        document.getElementById("cpuLoad").innerHTML = status.cpuLoad;
+        document.getElementById("cpuTemp").innerHTML = status.cpuTemp;
+        document.getElementById("usedRam").innerHTML = status.usedRam;
+        document.getElementById("totalRam").innerHTML = status.totalRam;
+        document.getElementById("snmpSpeed").innerHTML = status.speed;
+        document.getElementById("orientation").innerHTML = status.orientation;
+
+        updateRobotPosition(status.positionX, status.positionY, status.orientation-(Math.PI/2)); // Met à jour la position du robot en fonction des retours SNMP
     }
     else if(obj.type==="path"){
         console.log("Path reçu");
@@ -94,8 +107,12 @@ function shutdown(){
 var keepaliveTime = 400;
 var keepAlive = 0;
 
+function ping() {
+    sendEvent("status");
+}
+
 function startKeepAlive(){
-    keepAlive = setInterval(stop, keepaliveTime);
+    keepAlive = setInterval(ping, keepaliveTime);
 }
 
 function stopKeepAlive(){

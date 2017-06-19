@@ -37,6 +37,32 @@ function displayPath(json){
     canvas.add(pathgroup);
 }
 
+var oImg;
+
+fabric.Image.fromURL('/img/robot.png', function(oIMG){
+    oImg = oIMG;
+    oImg.set({originX: 'center', // premier placement du robot, avant snmp
+        originY: 'center',
+        lockMovementX: true,
+        lockMovementY: true,
+        lockScalingX: true,
+        lockScalingY: true,
+        lockUniScaling: true,
+        lockrotation: true,
+        selectable: false});
+    oImg.set({'left': 100});
+    oImg.set({'top': 100});
+    oImg.set({'angle': 0/(2*Math.PI)*360});
+    oImg.scale(0.05);
+    canvas.add(oImg);
+});
+
+function updateRobotPosition(x, y, o){
+    oImg.set({'left': x});
+    oImg.set({'top': y});
+    oImg.set({'angle': o/(2*Math.PI)*360});
+}
+
 $.getJSON("/map/map.json", function(map){
    canvas.setHeight(map.map.y);
    canvas.setWidth(map.map.x);
@@ -99,34 +125,9 @@ $.getJSON("/map/map.json", function(map){
        else {
            console.log("MAP : type d'obstacle inconnu : "+obstacle.type);
        }
+
    }
 
-    /*canvas.add(new fabric.Triangle({
-        originX: 'center',
-        originY: 'center',
-        left: map.map.xstart,
-        top: map.map.ystart,
-        angle: map.map.anglestart,
-        fill: 'green'
-    }));*/
-
-    fabric.Image.fromURL('/img/robot.png', function(oImg){
-        oImg.set({originX: 'center',
-            originY: 'center',
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            lockUniScaling: true,
-            lockrotation: true,
-            selectable: false});
-        oImg.set({'left': map.map.xstart});
-        oImg.set({'top': map.map.ystart});
-        oImg.set({'angle': map.map.anglestart/(2*Math.PI)*360});
-        oImg.scale(0.05);
-        canvas.add(oImg);
-
-    });
 
 
 
@@ -144,7 +145,7 @@ $.getJSON("/map/map.json", function(map){
     });
 
     function moveHandler(){
-        askGoTo(setPoint.getCenterPoint(), setPoint.getAngle()*(2*Math.PI)/360);
+        askGoTo(setPoint.getCenterPoint(), setPoint.getAngle()*(2*Math.PI)/360+(Math.PI/2));
     }
 
     canvas.on('object:modified', moveHandler);
@@ -152,6 +153,9 @@ $.getJSON("/map/map.json", function(map){
 
     canvas.add(setPoint);
     canvas.bringToFront(setPoint);
+
+    sendEvent("setpos "+map.map.xstart+" "+map.map.ystart);
+    sendEvent("setang "+map.map.anglestart);
 });
 
 

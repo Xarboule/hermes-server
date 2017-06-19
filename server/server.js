@@ -259,6 +259,15 @@ function processOrder (orderstr) {
         sendOrder(buf);
     }
 
+    else if (words[0] === "setpos") {
+        sendOrder(buf);
+    }
+    else if (words[0] === "setang") {
+        sendOrder(buf);
+    }
+    else if (orderstr === "status"){
+        sendOrder(buf);
+    }
     else {
         console.log('Ordre inconnu : '.bold.red + orderstr.italic);
     }

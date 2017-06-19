@@ -58,7 +58,7 @@ refreshstate: function(socket){
     session.get (oids, function (error, varbinds) {
         if (error) {
             console.error("SNMP Error : "+error);
-            console.log ("SNMP : Impossible d'obtenir les infos -> infos par defaut");
+
         } else {
             for (var i = 0; i < varbinds.length; i++)
                 if (snmp.isVarbindError (varbinds[i])){

@@ -28,6 +28,17 @@ socket.on('message', function(e) {
     if(e.type==="snmp"){
         console.log("Info SNMP reçue");
         var status = e;
+
+        document.getElementById("positionX").innerHTML = status.positionX;
+        document.getElementById("positionY").innerHTML = status.positionY;
+        document.getElementById("batteryLevel").innerHTML = status.batteryLevel;
+        document.getElementById("cameraState").innerHTML = status.cameraState;
+        document.getElementById("cpuLoad").innerHTML = status.cpuLoad;
+        document.getElementById("cpuTemp").innerHTML = status.cpuTemp;
+        document.getElementById("usedRam").innerHTML = status.usedRam;
+        document.getElementById("totalRam").innerHTML = status.totalRam;
+        document.getElementById("snmpSpeed").innerHTML = status.speed;
+        document.getElementById("orientation").innerHTML = status.orientation;
     }
     else if(obj.type==="path"){
         console.log("Path reçu");
@@ -37,16 +48,7 @@ socket.on('message', function(e) {
         console.error("Message reçu de type inconnu : "+obj);
     }
 
-    document.getElementById("positionX").innerHTML = status.positionX;
-    document.getElementById("positionY").innerHTML = status.positionY;
-    document.getElementById("batteryLevel").innerHTML = status.batteryLevel;
-    document.getElementById("cameraState").innerHTML = status.cameraState;
-    document.getElementById("cpuLoad").innerHTML = status.cpuLoad;
-    document.getElementById("cpuTemp").innerHTML = status.cpuTemp;
-    document.getElementById("usedRam").innerHTML = status.usedRam;
-    document.getElementById("totalRam").innerHTML = status.totalRam;
-    document.getElementById("snmpSpeed").innerHTML = status.speed;
-    document.getElementById("orientation").innerHTML = status.orientation;
+
 
 
 });
