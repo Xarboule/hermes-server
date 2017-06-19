@@ -145,7 +145,7 @@ $.getJSON("/map/map.json", function(map){
     });
 
     function moveHandler(){
-        askGoTo(setPoint.getCenterPoint(), setPoint.getAngle()*(2*Math.PI)/360+(Math.PI/2));
+        askGoTo(setPoint.getCenterPoint(), setPoint.getAngle()*(2*Math.PI)/360-(Math.PI/2));
     }
 
     canvas.on('object:modified', moveHandler);
